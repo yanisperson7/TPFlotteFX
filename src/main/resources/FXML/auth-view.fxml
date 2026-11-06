@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.text.TextFlow?>
+<VBox alignment="CENTER" minHeight="768.0" minWidth="1366.0" prefHeight="768.0" prefWidth="1366.0" spacing="20.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXController.AuthController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../../images/auth.jpg" />
+      </image>
+   </ImageView>
+   <HBox alignment="CENTER" spacing="20.0">
+      <children>
+      
+          <Label fx:id="welcomeText" alignment="CENTER" contentDisplay="TOP" minWidth="150.0" prefWidth="150.0" text="Login" />
+         <TextField fx:id="login" />
+      </children>
+   </HBox>
+
+   <TextFlow fx:id="error" prefHeight="40.0" prefWidth="200.0" />
+
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="257.0" spacing="20.0">
+      <children>
+         <Label fx:id="welcomeText1" alignment="CENTER" contentDisplay="TOP" minWidth="150.0" prefWidth="150.0" text="Password" />
+         <TextField fx:id="password" />
+      </children>
+   </HBox>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="257.0" spacing="20.0">
+      <children>
+         <Button mnemonicParsing="false" onAction="#onValiderButtonClick" text="Valider" />
+         <Button mnemonicParsing="false" onAction="#onClearClick" text="Effacer" />
+         <Button mnemonicParsing="false" onAction="#onFermerButtonClick" text="Fermer" />
+      </children>
+   </HBox>
+</VBox>
