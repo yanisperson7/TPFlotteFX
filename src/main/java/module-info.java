@@ -5,10 +5,10 @@ module org.example.tpflottefx {
     requires org.apache.logging.log4j;
     requires bcrypt;
     requires tools.jackson.databind;
+    requires net.synedra.validatorfx;
 
+    opens FXController to javafx.fxml;
 
-    opens org.example.tpflottefx to javafx.fxml;
-    exports org.example.tpflottefx;
+    opens FXApplication to javafx.fxml, javafx.graphics;
     exports FXApplication;
-    opens FXApplication to javafx.fxml;
 }
