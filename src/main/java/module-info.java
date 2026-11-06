@@ -9,4 +9,6 @@ module org.example.tpflottefx {
 
     opens org.example.tpflottefx to javafx.fxml;
     exports org.example.tpflottefx;
+    exports FXApplication;
+    opens FXApplication to javafx.fxml;
 }
