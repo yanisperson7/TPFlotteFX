@@ -1,4 +1,4 @@
-package org.example.tpflottefx;
+package FXController;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
