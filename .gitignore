@@ -48,3 +48,6 @@ aes.key
 mail.properties
 dao.properties
 *.enc
+mvnw
+mvnw.cmd
+.mvn/
