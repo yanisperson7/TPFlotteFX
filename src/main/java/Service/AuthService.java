@@ -23,10 +23,13 @@ public class AuthService {
     }
 
     public boolean login(String utilisateur, String motDePasse){
-        if(tentativeRestante>1){
-            String motDePasseBase = (root.get("login").asString().equals(utilisateur)) ? root.get("motDePasseHash").asString():"";
+        if(tentativeRestante>0){
+            String motDePasseBase = "";
+            if(root.get("login") != null && root.get("login").asString().equals(utilisateur)) {
+                motDePasseBase = root.get("motDePasseHash") != null ? root.get("motDePasseHash").asString() : "";
+            }
 
-            if(motDePasse.isEmpty()){
+            if(motDePasse.isEmpty() || motDePasseBase.isEmpty()) {
                 tentativeRestante--;
                 return false;
             }
@@ -38,7 +41,7 @@ public class AuthService {
                 tentativeRestante--;
                 return false;
             }
-        }else{
+        } else {
             throw new RegleGestionException("Identifiants incorrects. Nombre maximal de tentatives atteint. \nFermeture de l'application.");
         }
 

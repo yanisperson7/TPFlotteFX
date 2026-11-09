@@ -60,14 +60,20 @@ public class AuthController {
                 alert.show();
                 return;
             }
-            AccueilController accueilController = new AccueilController();
-            accueilController.accueilScene(login.getScene().getWindow());
+//            AccueilController accueilController = new AccueilController();
+//            accueilController.accueilScene(login.getScene().getWindow());
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur lors de l'authentification");
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
             alert.show();
+        } catch (Exceptions.RegleGestionException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Accès refusé");
+                alert.setHeaderText(null);
+                alert.setContentText(e.getMessage());
+                alert.show();
         } catch (NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur NullPointerException");
@@ -88,9 +94,10 @@ public class AuthController {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
             Platform.exit();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
+//        catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 
