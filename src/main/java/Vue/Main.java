@@ -94,11 +94,11 @@ public class Main {
                     menuConsole.vehiculesEnDeplacement(enDeplacement);
                     break;
 
-                case 10: // PDF & mail
-                    flotteController.etatFlottePdf();
-                    break;
-                case 11: // Historique d'un salarié
+                case 10: // Historique d'un salarié
                     menuConsole.afficherHistorique(reservationController.historiqueSalarie(menuConsole.historiqueSalarie()));
+                    break;
+                case 11: // PDF & mail
+                    flotteController.etatFlottePdf();
                     break;
 
                 case 12:
