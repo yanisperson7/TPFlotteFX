@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -50,23 +51,27 @@
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <DatePicker fx:id="date" prefHeight="26.0" prefWidth="208.0" promptText="01/01/2000">
+            <DatePicker fx:id="dateMiseCirculation" prefHeight="26.0" prefWidth="208.0" promptText="01/01/2000">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </DatePicker>
+             <Label fx:id="erreurDate" style="-fx-text-fill: red;" />
             <TextField fx:id="km" promptText="Km">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <Button fx:id="valider" mnemonicParsing="false" onAction="#onAddButtonClick" text="Valider">
+             <Label fx:id="erreurKm" style="-fx-text-fill: red;" />
+            <Button fx:id="valider" mnemonicParsing="false" onAction="#onAjouterVehicule" text="Valider">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
+             <Label fx:id="message" wrapText="true" />
          </children>
       </VBox>
+
       <TableView layoutX="456.0" layoutY="70.0" prefHeight="388.0" prefWidth="452.0">
         <columns>
           <TableColumn prefWidth="75.0" text="Immat." />
