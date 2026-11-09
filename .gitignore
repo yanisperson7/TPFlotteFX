@@ -46,6 +46,7 @@ arget/
 *.iml
 aes.key
 mail.properties
+mail.json
 dao.properties
 *.enc
 mvnw
