@@ -6,6 +6,10 @@ module fr.vannes {
     requires bcrypt;
     requires tools.jackson.databind;
     requires net.synedra.validatorfx;
+    requires kernel;
+    requires io;
+    requires layout;
+    requires sib.api.v3.sdk;
     requires java.desktop;
 
     opens fr.vannes.FXApplication to javafx.fxml, javafx.graphics, javafx.base;
@@ -13,4 +17,7 @@ module fr.vannes {
     exports fr.vannes.FXController;
     opens fr.vannes.Modele to javafx.base;
     opens fr.vannes.FXController to javafx.fxml, javafx.graphics, javafx.base;
-}
+    // pour Jackson 2.x
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.databind;
+    // autorisation pour Jackson

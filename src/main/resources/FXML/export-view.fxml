@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="700.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXController.FlotteController">
+   <children>
+       <ChoiceBox fx:id="choixTri" layoutX="261.0" layoutY="70.0">
+           <items>
+               <FXCollections fx:factory="observableArrayList">
+                   <String fx:value="Marque, puis modèle" />
+                   <String fx:value="Date de mise en circulation" />
+                   <String fx:value="Kilométrage décroissant" />
+               </FXCollections>
+           </items>
+       </ChoiceBox>
+      <VBox layoutX="45.0" layoutY="70.0" prefHeight="248.0" prefWidth="206.0">
+         <children>
+            <Text fx:id="titreFormulaire" strokeType="OUTSIDE" strokeWidth="0.0" text="Creer un  véhicule" wrappingWidth="177.33673095703125">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Text>
+            <TextField fx:id="immat" prefHeight="26.0" prefWidth="151.0" promptText="Immatriculation">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="marque" promptText="Marque">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="modele" promptText="Modèle">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <DatePicker fx:id="date" prefHeight="26.0" prefWidth="208.0" promptText="01/01/2000">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </DatePicker>
+            <TextField fx:id="km" promptText="Km">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Button fx:id="valider" mnemonicParsing="false" onAction="#onAddButtonClick" text="Valider">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+      <TableView layoutX="456.0" layoutY="70.0" prefHeight="388.0" prefWidth="452.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Immat." />
+            <TableColumn prefWidth="75.0" text="Marque" />
+            <TableColumn prefWidth="75.0" text="Modèle" />
+            <TableColumn prefWidth="75.0" text="Mise circ." />
+            <TableColumn prefWidth="75.0" text="Km" />
+            <TableColumn prefWidth="75.0" text="Etat" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

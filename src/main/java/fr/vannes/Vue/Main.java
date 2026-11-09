@@ -13,10 +13,11 @@ import fr.vannes.Service.ExportService;
 import fr.vannes.Service.ReservationService;
 import fr.vannes.Service.VehiculeService;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Flotte flotte = new Flotte();
 
         VehiculeDAO vehiculeDAO = new VehiculeDAOImpl();
@@ -93,7 +94,10 @@ public class Main {
                     menuConsole.vehiculesEnDeplacement(enDeplacement);
                     break;
 
-                case 10: // Historique d'un salarié
+                case 10: // PDF & mail
+                    flotteController.etatFlottePdf();
+                    break;
+                case 11: // Historique d'un salarié
                     menuConsole.afficherHistorique(reservationController.historiqueSalarie(menuConsole.historiqueSalarie()));
                     break;
 

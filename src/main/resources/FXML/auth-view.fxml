@@ -7,10 +7,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.text.TextFlow?>
 
 <VBox alignment="CENTER" spacing="25.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vannes.FXController.AuthController">
@@ -26,32 +27,36 @@
    </ImageView>
 
    <!-- Conteneur Formulaire : Aligne parfaitement les labels et les champs -->
-   <GridPane hgap="15.0" vgap="15.0" alignment="CENTER" maxWidth="400.0" VBox.vgrow="ALWAYS">
+   <GridPane alignment="CENTER" hgap="15.0" maxWidth="400.0" vgap="15.0" VBox.vgrow="ALWAYS">
       <columnConstraints>
-         <ColumnConstraints hgrow="NEVER" minWidth="80.0" halignment="RIGHT" />
-         <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" maxWidth="Infinity" />
+         <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="80.0" />
+         <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="150.0" />
       </columnConstraints>
 
       <children>
          <!-- Ligne Login -->
-         <Label fx:id="welcomeText" text="Identifiant :" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold;" />
-         <TextField fx:id="login" promptText="Entrez votre identifiant" GridPane.columnIndex="1" GridPane.rowIndex="0" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+         <Label fx:id="welcomeText" style="-fx-font-weight: bold;" text="Identifiant :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+         <TextField fx:id="login" maxWidth="Infinity" promptText="Entrez votre identifiant" GridPane.columnIndex="1" GridPane.rowIndex="0" HBox.hgrow="ALWAYS" />
 
          <!-- Ligne Mot de passe -->
-         <Label fx:id="welcomeText1" text="Mot de passe :" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold;" />
-         <PasswordField fx:id="password" promptText="Entrez votre mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="1" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+         <Label fx:id="welcomeText1" style="-fx-font-weight: bold;" text="Mot de passe :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+         <PasswordField fx:id="password" maxWidth="Infinity" promptText="Entrez votre mot de passe" GridPane.columnIndex="1" GridPane.rowIndex="1" HBox.hgrow="ALWAYS" />
       </children>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
    </GridPane>
 
    <!-- Zone d'erreur responsive -->
-   <TextFlow fx:id="error" maxWidth="400.0" textAlignment="CENTER" style="-fx-text-fill: red;" VBox.vgrow="NEVER" />
+   <TextFlow fx:id="error" maxWidth="400.0" style="-fx-text-fill: red;" textAlignment="CENTER" VBox.vgrow="NEVER" />
 
    <!-- Zone de boutons -->
-   <HBox alignment="CENTER" spacing="15.0" maxWidth="400.0" VBox.vgrow="NEVER">
+   <HBox alignment="CENTER" maxWidth="400.0" spacing="15.0" VBox.vgrow="NEVER">
       <children>
-         <Button mnemonicParsing="false" onAction="#onValiderButtonClick" text="Valider" defaultButton="true" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-background-color: #0078D4; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" />
-         <Button mnemonicParsing="false" onAction="#onClearClick" text="Effacer" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-cursor: hand;" />
-         <Button mnemonicParsing="false" onAction="#onFermerButtonClick" text="Fermer" cancelButton="true" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-cursor: hand;" />
+         <Button defaultButton="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#onValiderButtonClick" style="-fx-background-color: #0078D4; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="Valider" HBox.hgrow="ALWAYS" />
+         <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#onClearClick" style="-fx-cursor: hand;" text="Effacer" HBox.hgrow="ALWAYS" />
+         <Button cancelButton="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#onFermerButtonClick" style="-fx-cursor: hand;" text="Fermer" HBox.hgrow="ALWAYS" />
       </children>
    </HBox>
 </VBox>
