@@ -181,6 +181,10 @@ public class MenuConsole {
         System.out.println("-----------------------------------------------------------------");
     }
 
+    public void exportPDF() {
+
+    }
+
     public String historiqueSalarie() {
         System.out.println("HISTORIQUE D'UN SALARIÉ");
         return saisieString("Matricule : ");

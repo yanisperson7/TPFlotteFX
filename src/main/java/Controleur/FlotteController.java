@@ -5,17 +5,28 @@ import Modele.Reservation;
 import Modele.Salarie;
 import Modele.Vehicule;
 import Modele.*;
+import Service.MailService;
+import Service.PdfService;
 import Service.VehiculeService;
+import sendinblue.ApiException;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FlotteController {
     VehiculeService vehiculeService;
-
+    private PdfService pdfService;
+    private MailService mailService;
+    private static final String PATH = "export/etat-flotte.pdf";
     public FlotteController(VehiculeService vehiculeService) {
         this.vehiculeService = vehiculeService;
+        this.pdfService = new PdfService(PATH);
+        this.mailService = new MailService();
     }
 
     public String afficherFlotte(){
@@ -116,5 +127,19 @@ public class FlotteController {
         }
 
         return res;
+    }
+
+    public void etatFlottePdf(){
+        try {
+            pdfService.exporterFlottePdf(afficherFlotte());
+            mailService.envoyer(PATH);
+        } catch (RegleGestionException e) {
+            System.err.println(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ApiException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

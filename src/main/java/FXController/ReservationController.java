@@ -1,4 +1,6 @@
-package FXApplication;
+package FXController;
 
 public class ReservationController {
+
+
 }

@@ -3,10 +3,11 @@ package Service;
 import Exceptions.RegleGestionException;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import tools.jackson.databind.DeserializationFeature;
-import tools.jackson.databind.JsonNode;
-import tools.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
+import java.io.IOException;
 import java.nio.file.Path;
 
 public class AuthService {
@@ -14,10 +15,10 @@ public class AuthService {
     private JsonMapper mapper = JsonMapper.builder()
             .enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .build();
-    private JsonNode root = mapper.readTree(Path.of("user.json"));
+    private JsonNode root = mapper.readTree(Path.of("user.json").toFile());
     private int tentativeRestante;
 
-    public AuthService(String path) {
+    public AuthService(String path) throws IOException {
         this.path = path;
         this.tentativeRestante = 3;
     }
@@ -25,8 +26,8 @@ public class AuthService {
     public boolean login(String utilisateur, String motDePasse){
         if(tentativeRestante>0){
             String motDePasseBase = "";
-            if(root.get("login") != null && root.get("login").asString().equals(utilisateur)) {
-                motDePasseBase = root.get("motDePasseHash") != null ? root.get("motDePasseHash").asString() : "";
+            if(root.get("login") != null && root.get("login").toString().equals(utilisateur)) {
+                motDePasseBase = root.get("motDePasseHash") != null ? root.get("motDePasseHash").toString() : "";
             }
 
             if(motDePasse.isEmpty() || motDePasseBase.isEmpty()) {
