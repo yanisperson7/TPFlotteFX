@@ -48,13 +48,10 @@ public class AuthController {
     @FXML
     protected void onValiderButtonClick() {
         try {
-            if(authService.getTentativeRestante() >= 0)
+            if(authService.getTentativeRestante() <= 0)
                 throw new ExemptionMechanismException("Trop de tentatives invalides !");
-
-
             if(!checkError())
                 return;
-
             if(!authService.login(login.getText(), password.getText())) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Erreur");
@@ -104,8 +101,8 @@ public class AuthController {
                 .withMethod(context->{
                     String l= context.get("login");
                     if(l==null || l.isEmpty()){
-                        context.error("Le login doit être saisi !");
-                        addText(error,"Le login  doit être saisi !",Color.RED,true);
+                        context.error("Le login doit être saisi ! ");
+                        addText(error,"Le login  doit être saisi ! ",Color.RED,true);
 
                     }
                 })
@@ -114,8 +111,8 @@ public class AuthController {
                 .withMethod(context->{
                     String p= context.get("password");
                     if(p==null || p.isEmpty()){
-                        context.error("Le mot de passe doit être saisi !");
-                        addText(error,"Le mot de passe doit être saisi !",Color.RED,true);
+                        context.error("Le mot de passe doit être saisi ! ");
+                        addText(error,"Le mot de passe doit être saisi ! ",Color.RED,true);
                     }
                 })
                 .decorates(password);
