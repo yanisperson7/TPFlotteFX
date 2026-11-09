@@ -1,9 +1,10 @@
-module org.example.tpflottefx {
+module fr.vannes {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
     requires org.apache.logging.log4j;
     requires bcrypt;
+    requires tools.jackson.databind;
     requires net.synedra.validatorfx;
     requires kernel;
     requires io;
@@ -11,14 +12,12 @@ module org.example.tpflottefx {
     requires sib.api.v3.sdk;
     requires java.desktop;
 
+    opens fr.vannes.FXApplication to javafx.fxml, javafx.graphics, javafx.base;
+    exports fr.vannes.FXApplication;
+    exports fr.vannes.FXController;
+    opens fr.vannes.Modele to javafx.base;
+    opens fr.vannes.FXController to javafx.fxml, javafx.graphics, javafx.base;
     // pour Jackson 2.x
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     // autorisation pour Jackson
-    //opens org.example.tpflottefx to com.fasterxml.jackson.databind;
-
-    opens FXApplication to javafx.fxml, javafx.graphics;
-    exports FXApplication;
-    exports FXController;
-    opens FXController to javafx.fxml, javafx.graphics;
-}
