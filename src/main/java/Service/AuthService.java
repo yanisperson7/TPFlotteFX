@@ -26,8 +26,8 @@ public class AuthService {
     public boolean login(String utilisateur, String motDePasse){
         if(tentativeRestante>0){
             String motDePasseBase = "";
-            if(root.get("login") != null && root.get("login").toString().equals(utilisateur)) {
-                motDePasseBase = root.get("motDePasseHash") != null ? root.get("motDePasseHash").toString() : "";
+            if(root.get("login") != null && root.get("login").asText().equals(utilisateur)) {
+                motDePasseBase = root.get("motDePasseHash") != null ? root.get("motDePasseHash").asText() : "";
             }
 
             if(motDePasse.isEmpty() || motDePasseBase.isEmpty()) {

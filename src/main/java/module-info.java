@@ -4,7 +4,6 @@ module org.example.tpflottefx {
     requires java.sql;
     requires org.apache.logging.log4j;
     requires bcrypt;
-    requires tools.jackson.databind;
     requires net.synedra.validatorfx;
     requires kernel;
     requires io;
