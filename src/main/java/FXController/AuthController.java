@@ -48,11 +48,12 @@ public class AuthController {
     @FXML
     protected void onValiderButtonClick() {
         try {
-            if(authService.getTentativeRestante() <= 0)
-                throw new ExemptionMechanismException("Trop de tentatives invalides !");
-            if(!checkError())
+            if(!checkError()) {
                 return;
+            }
             if(!authService.login(login.getText(), password.getText())) {
+                if(authService.getTentativeRestante() <= 0)
+                    throw new ExemptionMechanismException("Trop de tentatives invalides !");
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Erreur");
                 alert.setHeaderText(null);
@@ -68,6 +69,12 @@ public class AuthController {
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
             alert.show();
+        } catch (Exceptions.RegleGestionException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Accès refusé");
+                alert.setHeaderText(null);
+                alert.setContentText(e.getMessage());
+                alert.show();
         } catch (NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur NullPointerException");
@@ -88,7 +95,8 @@ public class AuthController {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
             Platform.exit();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
