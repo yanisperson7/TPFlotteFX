@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1430.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vannes.FXController.ReservationController">
+   <children>
+      <HBox prefHeight="258.0" prefWidth="766.0">
+         <children>
+            <AnchorPane prefHeight="258.0" prefWidth="1500.0">
+               <children>
+                  <VBox layoutX="30.0" layoutY="25.0" prefHeight="209.0" prefWidth="206.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="760.0" AnchorPane.topAnchor="25.0">
+                     <children>
+                        <Text fx:id="titreFormulaire" strokeType="OUTSIDE" strokeWidth="0.0" text="Creer un  salarié" wrappingWidth="177.33673095703125">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Text>
+                        <TextField fx:id="TextMatriculeSalarie" prefHeight="26.0" prefWidth="151.0" promptText="Matricule">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="TextNom" promptText="Nom">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="TextPrenom" promptText="Prénom">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="ButValiderSalarie" mnemonicParsing="false" text="Valider">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="ButEffacerSalarie" mnemonicParsing="false" text="Effacer">
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label fx:id="MessageSalarie" wrapText="true" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="254.0" layoutY="25.0" prefHeight="209.0" prefWidth="206.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="536.0" AnchorPane.topAnchor="25.0">
+                     <children>
+                        <Text fx:id="titreFormulaire1" strokeType="OUTSIDE" strokeWidth="0.0" text="Enregistrer un départ" wrappingWidth="177.33673095703125">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Text>
+                        <TextField fx:id="TextMatriculeDepart" prefHeight="26.0" prefWidth="151.0" promptText="Matricule">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="TextImmatriculationDepart" promptText="Immatriculation">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="ButValiderDepart" mnemonicParsing="false" text="Valider">
+                                 <HBox.margin>
+                                    <Insets top="40.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="ButEffacerDepart" mnemonicParsing="false" text="Effacer">
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="40.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label fx:id="MessageDepart" wrapText="true" />
+                     </children>
+                  </VBox>
+                  <VBox layoutX="472.0" layoutY="25.0" prefHeight="209.0" prefWidth="206.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="472.0" AnchorPane.rightAnchor="318.0" AnchorPane.topAnchor="25.0">
+                     <children>
+                        <Text fx:id="titreFormulaire11" strokeType="OUTSIDE" strokeWidth="0.0" text="Enregistrer un retour" wrappingWidth="177.33673095703125">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Text>
+                        <TextField fx:id="TextImmatriculationRetour" prefHeight="26.0" prefWidth="151.0" promptText="Immatriculation">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="TextKilometrage" promptText="Kilométrage">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="ButValiderRetour" mnemonicParsing="false" text="Valider">
+                                 <HBox.margin>
+                                    <Insets top="40.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="ButEffacerRetour" mnemonicParsing="false" text="Effacer">
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="40.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label fx:id="MessageRetour" wrapText="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox layoutX="-2.0" layoutY="215.0" prefHeight="493.0" prefWidth="1430.0">
+         <children>
+            <AnchorPane prefHeight="579.0" prefWidth="1432.0">
+               <children>
+                  <Label layoutX="966.0" layoutY="8.0" prefHeight="25.0" prefWidth="169.0" text="Liste des véhicules">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="14.0" text="Liste des salariés" AnchorPane.bottomAnchor="460.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="490.0" layoutY="8.0" prefHeight="25.0" prefWidth="169.0" text="Historique d'un salarié" AnchorPane.bottomAnchor="460.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <HBox layoutX="1112.0" layoutY="8.0" prefHeight="26.0" prefWidth="270.0">
+                     <children>
+                        <Button fx:id="ButValiderSalarie1" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Tous les véhicules">
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="ButValiderSalarie11" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="En déplacement" />
+                     </children>
+                  </HBox>
+                  <TableView fx:id="TableauVehicule" layoutX="966.0" layoutY="39.0" prefHeight="388.0" prefWidth="450.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="966.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="39.0">
+                     <columns>
+                        <TableColumn fx:id="Immatriculation" prefWidth="75.0" text="Immat." />
+                        <TableColumn fx:id="Marque" prefWidth="75.0" text="Marque" />
+                        <TableColumn fx:id="Modele" prefWidth="75.0" text="Modèle" />
+                        <TableColumn fx:id="MiseCirculation" prefWidth="75.0" text="Mise circ." />
+                        <TableColumn fx:id="Km" prefWidth="75.0" text="Km" />
+                        <TableColumn fx:id="Etat" prefWidth="75.0" text="Etat" />
+                     </columns>
+                  </TableView>
+                  <TableView layoutX="490.0" layoutY="39.0" prefHeight="388.0" prefWidth="450.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="490.0" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="39.0">
+                     <columns>
+                        <TableColumn prefWidth="75.0" text="Immat." />
+                        <TableColumn prefWidth="75.0" text="Marque" />
+                        <TableColumn prefWidth="75.0" text="Modèle" />
+                        <TableColumn prefWidth="75.0" text="Mise circ." />
+                        <TableColumn prefWidth="75.0" text="Km" />
+                        <TableColumn prefWidth="75.0" text="Etat" />
+                     </columns>
+                  </TableView>
+                  <TableView fx:id="TableauSalarie" layoutX="14.0" layoutY="39.0" prefHeight="388.0" prefWidth="362.0">
+                     <columns>
+                        <TableColumn fx:id="Matricule" prefWidth="93.0" text="Matricule" />
+                        <TableColumn fx:id="Nom" prefWidth="133.0" text="Nom" />
+                        <TableColumn fx:id="Prenom" prefWidth="135.0" text="Prénom" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
