@@ -48,11 +48,12 @@ public class AuthController {
     @FXML
     protected void onValiderButtonClick() {
         try {
-            if(authService.getTentativeRestante() <= 0)
-                throw new ExemptionMechanismException("Trop de tentatives invalides !");
-            if(!checkError())
+            if(!checkError()) {
                 return;
+            }
             if(!authService.login(login.getText(), password.getText())) {
+                if(authService.getTentativeRestante() <= 0)
+                    throw new ExemptionMechanismException("Trop de tentatives invalides !");
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Erreur");
                 alert.setHeaderText(null);
@@ -60,8 +61,8 @@ public class AuthController {
                 alert.show();
                 return;
             }
-//            AccueilController accueilController = new AccueilController();
-//            accueilController.accueilScene(login.getScene().getWindow());
+            AccueilController accueilController = new AccueilController();
+            accueilController.accueilScene(login.getScene().getWindow());
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erreur lors de l'authentification");
@@ -95,9 +96,9 @@ public class AuthController {
             alert.showAndWait();
             Platform.exit();
         }
-//        catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
