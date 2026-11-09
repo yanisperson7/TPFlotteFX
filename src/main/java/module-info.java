@@ -6,7 +6,17 @@ module org.example.tpflottefx {
     requires bcrypt;
     requires tools.jackson.databind;
     requires net.synedra.validatorfx;
+    requires kernel;
+    requires io;
+    requires layout;
+    requires sib.api.v3.sdk;
     requires java.desktop;
+
+    // pour Jackson 2.x
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.databind;
+    // autorisation pour Jackson
+    //opens org.example.tpflottefx to com.fasterxml.jackson.databind;
 
     opens FXApplication to javafx.fxml, javafx.graphics;
     exports FXApplication;
