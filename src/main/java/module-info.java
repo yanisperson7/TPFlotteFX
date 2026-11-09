@@ -4,11 +4,13 @@ module org.example.tpflottefx {
     requires java.sql;
     requires org.apache.logging.log4j;
     requires bcrypt;
+    requires tools.jackson.databind;
     requires net.synedra.validatorfx;
     requires kernel;
     requires io;
     requires layout;
     requires sib.api.v3.sdk;
+    requires java.desktop;
 
     // pour Jackson 2.x
     requires com.fasterxml.jackson.core;
@@ -18,7 +20,6 @@ module org.example.tpflottefx {
 
     opens FXApplication to javafx.fxml, javafx.graphics;
     exports FXApplication;
-
     exports FXController;
     opens FXController to javafx.fxml, javafx.graphics;
 }
