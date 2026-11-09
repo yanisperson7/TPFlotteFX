@@ -4,7 +4,6 @@ module fr.vannes {
     requires java.sql;
     requires org.apache.logging.log4j;
     requires bcrypt;
-    requires tools.jackson.databind;
     requires net.synedra.validatorfx;
     requires kernel;
     requires io;
@@ -20,4 +19,5 @@ module fr.vannes {
     // pour Jackson 2.x
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
+}
     // autorisation pour Jackson

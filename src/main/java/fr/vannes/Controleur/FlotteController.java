@@ -1,20 +1,9 @@
 package fr.vannes.Controleur;
 
-import Exceptions.RegleGestionException;
-import Modele.Reservation;
-import Modele.Salarie;
-import Modele.Vehicule;
-import Modele.*;
-import Service.MailService;
-import Service.PdfService;
-import Service.VehiculeService;
-import sendinblue.ApiException;
-import fr.vannes.Exceptions.RegleGestionException;
-import fr.vannes.Modele.Reservation;
-import fr.vannes.Modele.Salarie;
-import fr.vannes.Modele.Vehicule;
+import fr.vannes.Exceptions.*;
 import fr.vannes.Modele.*;
-import fr.vannes.Service.VehiculeService;
+import fr.vannes.Service.*;
+import sendinblue.ApiException;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,13 +15,13 @@ import java.util.Map;
 
 public class FlotteController {
     VehiculeService vehiculeService;
-    private PdfService pdfService;
-    private MailService mailService;
+    private Service.PdfService pdfService;
+    private Service.MailService mailService;
     private static final String PATH = "export/etat-flotte.pdf";
     public FlotteController(VehiculeService vehiculeService) {
         this.vehiculeService = vehiculeService;
-        this.pdfService = new PdfService(PATH);
-        this.mailService = new MailService();
+        this.pdfService = new Service.PdfService(PATH);
+        this.mailService = new Service.MailService();
     }
 
     public String afficherFlotte(){

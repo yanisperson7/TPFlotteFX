@@ -1,6 +1,6 @@
-package FXController;
+package fr.vannes.FXController;
 
-import FXApplication.AuthApplication;
+import fr.vannes.FXApplication.AuthApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
