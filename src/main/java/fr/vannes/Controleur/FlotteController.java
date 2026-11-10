@@ -16,16 +16,16 @@ import java.util.Map;
 
 public class FlotteController {
     VehiculeService vehiculeService;
-    private PdfService pdfService;
-    private MailService mailService;
+    private Service.PdfService pdfService;
+    private Service.MailService mailService;
     private String path;
 
     public FlotteController(VehiculeService vehiculeService) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
         this.vehiculeService = vehiculeService;
         this.path = "export/" + LocalDateTime.now().format(formatter) + "_etat-flotte.pdf";
-        this.pdfService = new PdfService(path);
-        this.mailService = new MailService();
+        this.pdfService = new Service.PdfService(path);
+        this.mailService = new Service.MailService();
     }
 
     public String afficherFlotte(){

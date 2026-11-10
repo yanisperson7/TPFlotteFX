@@ -72,6 +72,14 @@ public class Reservation {
         this.kmRetour = kmRetour;
     }
 
+    public String getImmatriculation() {
+        return vehicule.getImmatriculation();
+    }
+
+    public String getVehiculeComplet() {
+        return vehicule.getMarque() + " " + vehicule.getModele();
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +

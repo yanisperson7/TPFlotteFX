@@ -16,7 +16,7 @@
    <children>
       <HBox prefHeight="258.0" prefWidth="766.0">
          <children>
-            <AnchorPane prefHeight="258.0" prefWidth="1500.0">
+            <AnchorPane onMouseClicked="#onSalarieClick" prefHeight="258.0" prefWidth="1500.0">
                <children>
                   <VBox layoutX="30.0" layoutY="25.0" prefHeight="209.0" prefWidth="206.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="760.0" AnchorPane.topAnchor="25.0">
                      <children>
@@ -152,7 +152,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="490.0" layoutY="8.0" prefHeight="25.0" prefWidth="169.0" text="Historique d'un salarié" AnchorPane.bottomAnchor="460.0">
+                  <Label layoutX="392.0" layoutY="8.0" prefHeight="25.0" prefWidth="169.0" text="Historique d'un salarié" AnchorPane.bottomAnchor="460.0">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -177,17 +177,15 @@
                         <TableColumn fx:id="Etat" prefWidth="75.0" text="Etat" />
                      </columns>
                   </TableView>
-                  <TableView layoutX="490.0" layoutY="39.0" prefHeight="388.0" prefWidth="450.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="490.0" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="39.0">
+                  <TableView fx:id="TableauHistorique" layoutX="392.0" layoutY="39.0" prefHeight="388.0" prefWidth="553.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="485.0" AnchorPane.topAnchor="39.0">
                      <columns>
-                        <TableColumn prefWidth="75.0" text="Immat." />
-                        <TableColumn prefWidth="75.0" text="Marque" />
-                        <TableColumn prefWidth="75.0" text="Modèle" />
-                        <TableColumn prefWidth="75.0" text="Mise circ." />
-                        <TableColumn prefWidth="75.0" text="Km" />
-                        <TableColumn prefWidth="75.0" text="Etat" />
+                        <TableColumn fx:id="DateDepart" prefWidth="160.0" text="Date de départ" />
+                        <TableColumn fx:id="DateRetour" prefWidth="168.0" text="Date de retour" />
+                        <TableColumn fx:id="ImmatriculationHistorique" prefWidth="111.0" text="Immatriculation" />
+                        <TableColumn fx:id="Véhicule" prefWidth="112.0" text="Véhicule" />
                      </columns>
                   </TableView>
-                  <TableView fx:id="TableauSalarie" layoutX="14.0" layoutY="39.0" prefHeight="388.0" prefWidth="362.0">
+                  <TableView fx:id="TableauSalarie" layoutX="14.0" layoutY="39.0" onMouseClicked="#onSalarieClick" prefHeight="388.0" prefWidth="362.0">
                      <columns>
                         <TableColumn fx:id="Matricule" prefWidth="93.0" text="Matricule" />
                         <TableColumn fx:id="Nom" prefWidth="133.0" text="Nom" />
