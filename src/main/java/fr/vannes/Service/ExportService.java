@@ -46,7 +46,7 @@ public class ExportService {
         }
 
         try {
-            ChiffrementAES.chiffrer(texte, cle, Path.of("salaries.enc"));
+        ChiffrementAES.chiffrer(texte, cle, Path.of("export/salaries.enc"));
             System.out.println("[Export] salaries.enc : " + salaries.size() + " salariés exportés et chiffrés.");
         } catch (GeneralSecurityException | IOException e) {
             throw new RuntimeException("Échec de l'export des salariés", e);
@@ -74,7 +74,7 @@ public class ExportService {
         }
 
         try {
-            ChiffrementAES.chiffrer(texte, cle, Path.of("reservations.enc"));
+            ChiffrementAES.chiffrer(texte, cle, Path.of("export/reservations.enc"));
             System.out.println("[Export] reservations.enc : " + reservations.size() + " réservations exportées et chiffrées.");
         } catch (GeneralSecurityException | IOException e) {
             throw new RuntimeException("Échec de l'export des réservations", e);

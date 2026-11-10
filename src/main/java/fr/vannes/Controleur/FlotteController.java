@@ -7,6 +7,7 @@ import sendinblue.ApiException;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,13 +16,16 @@ import java.util.Map;
 
 public class FlotteController {
     VehiculeService vehiculeService;
-    private Service.PdfService pdfService;
-    private Service.MailService mailService;
-    private static final String PATH = "export/etat-flotte.pdf";
+    private PdfService pdfService;
+    private MailService mailService;
+    private String path;
+
     public FlotteController(VehiculeService vehiculeService) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
         this.vehiculeService = vehiculeService;
-        this.pdfService = new Service.PdfService(PATH);
-        this.mailService = new Service.MailService();
+        this.path = "export/" + LocalDateTime.now().format(formatter) + "_etat-flotte.pdf";
+        this.pdfService = new PdfService(path);
+        this.mailService = new MailService();
     }
 
     public String afficherFlotte(){
@@ -127,7 +131,7 @@ public class FlotteController {
     public void etatFlottePdf(){
         try {
             pdfService.exporterFlottePdf(afficherFlotte());
-            mailService.envoyer(PATH);
+            mailService.envoyer(this.path);
         } catch (RegleGestionException e) {
             System.err.println(e.getMessage());
         } catch (IOException e) {
