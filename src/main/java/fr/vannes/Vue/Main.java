@@ -1,0 +1,117 @@
+package fr.vannes.Vue;
+
+import fr.vannes.Controleur.AuthController;
+import fr.vannes.Controleur.EtatController;
+import fr.vannes.Controleur.FlotteController;
+import fr.vannes.Controleur.ReservationController;
+import fr.vannes.DAO.*;
+import fr.vannes.Exceptions.RegleGestionException;
+import fr.vannes.Modele.Flotte;
+import fr.vannes.Modele.Reservation;
+import fr.vannes.Service.AuthService;
+import fr.vannes.Service.ExportService;
+import fr.vannes.Service.ReservationService;
+import fr.vannes.Service.VehiculeService;
+
+import java.io.IOException;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        Flotte flotte = new Flotte();
+
+        VehiculeDAO vehiculeDAO = new VehiculeDAOImpl();
+        ReservationDAO reservationDAO = new ReservationDAOImpl();
+        SalarieDAO salarieDAO = new SalarieDAOImpl();
+
+        VehiculeService vehiculeService = new VehiculeService(flotte,reservationDAO,vehiculeDAO);
+        ReservationService reservationService = new ReservationService(vehiculeDAO, reservationDAO, salarieDAO);
+        ExportService exportService = new ExportService(salarieDAO, reservationDAO);
+
+        FlotteController flotteController = new FlotteController(vehiculeService);
+        ReservationController reservationController = new ReservationController(reservationService);
+        EtatController etatController = new EtatController(exportService);
+        AuthService authService = new AuthService("user.json");
+        AuthController authController = new AuthController(authService);
+
+        MenuConsole menuConsole = new MenuConsole();
+        menuConsole.demarrage();
+
+        boolean login=false;
+
+        try {
+            while(!login){
+                login = authController.Login(menuConsole.connexion());
+                if(!login) menuConsole.afficher(authController.afficherTentativesRestantes());
+            }
+        }catch (RegleGestionException e){
+            menuConsole.afficher(e.getMessage());
+            return;
+        }
+
+        int choix = menuConsole.afficherMenu();
+        while(choix != 0){
+
+            switch(choix){
+                case 1: // Afficher la flotte
+                    menuConsole.afficher(flotteController.afficherFlotte());
+                    break;
+
+                case 2: // Ajouter un véhicule
+                    menuConsole.afficher(flotteController.ajouterVehicule(menuConsole.ajouterVehicule()));
+                    break;
+
+                case 3: // Retirer un véhicule
+                    menuConsole.afficher(flotteController.retirerVehicule(menuConsole.retirerVehicule()));
+                    break;
+
+                case 4: // Rechercher un véhicule
+                    menuConsole.afficher(flotteController.rechercherVehicule(menuConsole.rechercherVehicule()));
+                    break;
+
+                case 5: // Trier un véhicule
+                    menuConsole.afficher(flotteController.trierFlotte(menuConsole.trierFlotte()));
+                    break;
+
+                case 6: // Créer un salarié
+                    menuConsole.afficher(reservationController.creerSalarie(menuConsole.creerSalarie()));
+                    break;
+
+                case 7: // Enregistrer un départ
+                    String[] infosDepart = menuConsole.enregistrerDepart();
+                    String resultatDepart = reservationController.enregistrerDepart(infosDepart[0], infosDepart[1]);
+                    menuConsole.afficher(resultatDepart);
+                    break;
+
+                case 8: // Enregistrer un retour
+                    String[] infosRetour = menuConsole.enregistrerRetour();
+                    String resultatRetour = reservationController.enregistrerRetour(infosRetour[0], Integer.parseInt(infosRetour[1]));
+                    menuConsole.afficher(resultatRetour);
+                    break;
+
+                case 9: // Véhicules en déplacement
+                    List<Reservation> enDeplacement = reservationController.vehiculeEnDeplacement();
+                    menuConsole.vehiculesEnDeplacement(enDeplacement);
+                    break;
+
+                case 10: // Historique d'un salarié
+                    menuConsole.afficherHistorique(reservationController.historiqueSalarie(menuConsole.historiqueSalarie()));
+                    break;
+                case 11: // PDF & mail
+                    flotteController.etatFlottePdf();
+                    break;
+
+                case 12:
+                    menuConsole.afficher(etatController.exporter());
+                    break;
+
+                case 13: // Lire un fichier exporté (AES)
+                    menuConsole.afficher(etatController.lireFichier(menuConsole.lireFichier()));
+                    break;
+            }
+
+            choix = menuConsole.afficherMenu();
+
+        }
+    }
+}
