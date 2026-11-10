@@ -45,6 +45,7 @@ arget/
 .idea/
 *.iml
 aes.key
+src/main/resources/properties/
 mail.properties
 mail.json
 dao.properties

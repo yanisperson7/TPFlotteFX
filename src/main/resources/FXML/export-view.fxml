@@ -4,10 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="700.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXController.ExportController">
+<AnchorPane prefHeight="700.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vannes.FXController.ExportController">
    <children>
       <TableView fx:id="listeFichiers" layoutX="455.0" layoutY="70.0" prefHeight="388.0" prefWidth="448.0">
         <columns>
@@ -16,11 +15,13 @@
             <TableColumn fx:id="etat" minWidth="0.0" prefWidth="90.0" text="Etat" />
         </columns>
       </TableView>
-      <ImageView fitHeight="388.0" fitWidth="354.0" layoutX="46.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="66.0" layoutY="53.0" text="Aperçu du PDF" />
-      <Button layoutX="26.0" layoutY="554.0" mnemonicParsing="false" text="Exporter salariés et réservations" />
-      <Button layoutX="26.0" layoutY="509.0" mnemonicParsing="false" onAction="#onGenererButtonClick" text="Générer pdf et envoie du mail" />
-      <Button layoutX="26.0" layoutY="596.0" mnemonicParsing="false" text="Lire fichier chiffré" />
-      <Button layoutX="26.0" layoutY="639.0" mnemonicParsing="false" text="Supprimer" />
+      <Button fx:id="btnExporter" layoutX="26.0" layoutY="554.0" mnemonicParsing="false" onAction="#onExporterButtonClick" text="Exporter salariés et réservations" />
+      <Button fx:id="btnGenerer" layoutX="26.0" layoutY="509.0" mnemonicParsing="false" onAction="#onGenererButtonClick" text="Générer pdf et envoie du mail" />
+      <Button fx:id="btnLireFichier" layoutX="26.0" layoutY="596.0" mnemonicParsing="false" onAction="#onLireFichierButtonClick" text="Ouvrir dans le navigateur" />
+      <Button fx:id="btnSupprimer" layoutX="26.0" layoutY="639.0" mnemonicParsing="false" onAction="#onSupprimerButtonClick" text="Supprimer" />
+      <Button layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onAction="#onAccueilButtonClick" text="Accueil" />
+      <Button layoutX="86.0" layoutY="14.0" mnemonicParsing="false" onAction="#onVehiculeButtonClick" text="Véhicules" />
+      <Button layoutX="167.0" layoutY="14.0" mnemonicParsing="false" onAction="#onReservationButtonClick" text="Réservations" />
    </children>
 </AnchorPane>
