@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -19,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static java.lang.Thread.sleep;
@@ -36,6 +38,10 @@ public class FlotteController {
     private TextField km;
     @FXML
     private Label message;
+    @FXML
+    private TextField rechercheImmat;
+    @FXML
+    private ChoiceBox<String> choixTri;
     @FXML
     private TableView<Vehicule> list;
     @FXML
@@ -67,7 +73,15 @@ public class FlotteController {
         modeleColumn.setCellValueFactory(new PropertyValueFactory<>("modele"));
         miseEnCirculationColumn.setCellValueFactory(new PropertyValueFactory<>("date_mise_circulation"));
         kmColumn.setCellValueFactory(new PropertyValueFactory<>("kilometrage"));
-        list.setItems(vehicules);
+
+        FilteredList<Vehicule> vehiculesFiltres = new FilteredList<>(vehicules, v -> true);
+        list.setItems(vehiculesFiltres);
+
+        rechercheImmat.textProperty().addListener((obs, ancien, nouveau) -> {
+            String saisie = nouveau == null ? "" : nouveau.trim().toUpperCase();
+            vehiculesFiltres.setPredicate(v ->
+                    saisie.isEmpty() || v.getImmatriculation().toUpperCase().contains(saisie));
+        });
 
         Platform.runLater(() -> {
             loadTableAsync();
@@ -81,10 +95,6 @@ public class FlotteController {
             dateMiseCirculation.setValue(newV == null ? null : newV.getDate_mise_circulation());
             km.setText(newV == null ? "" : String.valueOf(newV.getKilometrage()));
         });
-
-    }
-
-    public void loadEtatVehicule() throws IOException {
 
     }
 
@@ -107,9 +117,7 @@ public class FlotteController {
             List<Integer> listV = vehiculeService.estEnDeplacement();
 
             etatColumn.setCellValueFactory(c -> new SimpleStringProperty((listV.contains (c.getValue().getId())) ? "En déplacement" : "Disponible"));
-            list.setItems(vehicules);
-
-            list.getItems().setAll(task.getValue());
+            vehicules.setAll(task.getValue());
 
             list.setPlaceholder(new Label("Aucun média"));
 
@@ -121,7 +129,7 @@ public class FlotteController {
                     + task.getException().getMessage()));
         });
 
-        list.getItems().clear();               //intialise la tableView en la vidant
+        vehicules.clear();               //intialise la tableView en la vidant
         list.setPlaceholder(new ProgressIndicator());//et affiche le sablier
 
         Thread thread = new Thread(task, "load-media");
@@ -194,6 +202,18 @@ public class FlotteController {
             message.setStyle("-fx-text-fill: red;");
             message.setText("Erreur : Véhicule en déplacement : " + e.getMessage());
 
+        }
+    }
+
+    @FXML
+    public void onTrier() {
+        String choix = choixTri.getValue();
+        System.out.println("Choix : " + choix);
+        switch (choix) {
+            case "Marque, puis modèle" -> FXCollections.sort(vehicules, Comparator.comparing(Vehicule::getMarque)
+                    .thenComparing(Vehicule::getModele));
+            case "Date de mise en circulation" -> FXCollections.sort(vehicules, Comparator.comparing(Vehicule::getDate_mise_circulation));
+            case "Kilométrage décroissant" -> FXCollections.sort(vehicules, Comparator.comparing(Vehicule::getKilometrage));
         }
     }
 }
