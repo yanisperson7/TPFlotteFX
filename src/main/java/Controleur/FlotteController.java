@@ -24,9 +24,9 @@ public class FlotteController {
     private PdfService pdfService;
     private MailService mailService;
     private String path;
+
     public FlotteController(VehiculeService vehiculeService) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
-        ;
         this.vehiculeService = vehiculeService;
         this.path = "export/" + LocalDateTime.now().format(formatter) + "_etat-flotte.pdf";
         this.pdfService = new PdfService(path);
