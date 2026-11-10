@@ -11,13 +11,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="700.0" prefWidth="931.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vannes.FXController.FlotteController">
    <children>
-       <ChoiceBox fx:id="choixTri" layoutX="261.0" layoutY="70.0">
+       <ChoiceBox fx:id="choixTri" layoutX="270.0" layoutY="70.0">
            <items>
                <FXCollections fx:factory="observableArrayList">
                    <String fx:value="Marque, puis modèle" />
@@ -26,7 +27,7 @@
                </FXCollections>
            </items>
        </ChoiceBox>
-      <VBox layoutX="45.0" layoutY="70.0" prefHeight="248.0" prefWidth="206.0">
+      <VBox layoutX="24.0" layoutY="70.0" prefWidth="230.0">
          <children>
             <Text fx:id="titreFormulaire" strokeType="OUTSIDE" strokeWidth="0.0" text="Creer un  véhicule" wrappingWidth="177.33673095703125">
                <font>
@@ -43,43 +44,48 @@
             </TextField>
             <TextField fx:id="marque" promptText="Marque">
                <VBox.margin>
-                  <Insets top="5.0" />
+                  <Insets top="16.0" />
                </VBox.margin>
             </TextField>
             <TextField fx:id="modele" promptText="Modèle">
                <VBox.margin>
-                  <Insets top="5.0" />
+                  <Insets top="16.0" />
                </VBox.margin>
             </TextField>
-            <DatePicker fx:id="dateMiseCirculation" prefHeight="26.0" prefWidth="208.0" promptText="01/01/2000">
+            <DatePicker fx:id="dateMiseCirculation" prefHeight="26.0" prefWidth="231.0" promptText="01/01/2000">
                <VBox.margin>
-                  <Insets top="5.0" />
+                  <Insets top="16.0" />
                </VBox.margin>
             </DatePicker>
-             <Label fx:id="erreurDate" style="-fx-text-fill: red;" />
             <TextField fx:id="km" promptText="Km">
                <VBox.margin>
-                  <Insets top="5.0" />
+                  <Insets top="16.0" />
                </VBox.margin>
             </TextField>
-             <Label fx:id="erreurKm" style="-fx-text-fill: red;" />
-            <Button fx:id="valider" mnemonicParsing="false" onAction="#onAjouterVehicule" text="Valider">
+            <Label fx:id="message" wrapText="true" />
+            <HBox prefHeight="23.0" prefWidth="230.0">
+               <children>
+                  <Button fx:id="valider" mnemonicParsing="false" onAction="#onAjouterVehicule" text="Valider">
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="supprimer" mnemonicParsing="false" onAction="#onSupprimerVehicule" text="Supprimer" />
+               </children>
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets top="20.0" />
                </VBox.margin>
-            </Button>
-             <Label fx:id="message" wrapText="true" />
+            </HBox>
          </children>
       </VBox>
-
-      <TableView layoutX="456.0" layoutY="70.0" prefHeight="388.0" prefWidth="452.0">
+      <TableView fx:id="list" layoutX="456.0" layoutY="70.0" prefHeight="388.0" prefWidth="452.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Immat." />
-            <TableColumn prefWidth="75.0" text="Marque" />
-            <TableColumn prefWidth="75.0" text="Modèle" />
-            <TableColumn prefWidth="75.0" text="Mise circ." />
-            <TableColumn prefWidth="75.0" text="Km" />
-            <TableColumn prefWidth="75.0" text="Etat" />
+            <TableColumn fx:id="immatColumn" prefWidth="75.0" text="Immat." />
+            <TableColumn fx:id="marqueColumn" prefWidth="75.0" text="Marque" />
+            <TableColumn fx:id="modeleColumn" prefWidth="75.0" text="Modèle" />
+            <TableColumn fx:id="miseEnCirculationColumn" prefWidth="75.0" text="Mise circ." />
+            <TableColumn fx:id="kmColumn" prefWidth="75.0" text="Km" />
+            <TableColumn fx:id="etatColumn" prefWidth="75.0" text="Etat" />
         </columns>
       </TableView>
    </children>

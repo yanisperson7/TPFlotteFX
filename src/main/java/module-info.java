@@ -20,4 +20,4 @@ module fr.vannes {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
 }
-    // autorisation pour Jackson
+
