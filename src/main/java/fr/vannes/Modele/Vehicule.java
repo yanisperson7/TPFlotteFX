@@ -1,6 +1,7 @@
 package fr.vannes.Modele;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Vehicule {
     private int id;
@@ -68,6 +69,19 @@ public class Vehicule {
     public void setKilometrage(int kilometrage) {
         if(kilometrage<0) throw new IllegalArgumentException("Le kilométrage doit-être un entier positif");
         this.kilometrage = kilometrage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicule autre = (Vehicule) o;
+        return Objects.equals(immatriculation, autre.immatriculation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(immatriculation);
     }
 
     @Override

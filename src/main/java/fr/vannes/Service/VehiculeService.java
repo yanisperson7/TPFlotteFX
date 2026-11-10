@@ -1,6 +1,7 @@
 package fr.vannes.Service;
 
 import fr.vannes.DAO.ReservationDAO;
+import fr.vannes.DAO.ReservationDAOImpl;
 import fr.vannes.DAO.VehiculeDAO;
 import fr.vannes.Exceptions.DAOExceptions;
 import fr.vannes.Exceptions.RegleGestionException;
@@ -130,8 +131,8 @@ public class VehiculeService {
         return flotte;
     }
 
-    public Boolean estEnDeplacement(int vehiculeId){
-        return reservationDAO.estEnDeplacement(vehiculeId);
+    public List estEnDeplacement(){
+        return reservationDAO.vehiculeNd();
     }
 
     /**
