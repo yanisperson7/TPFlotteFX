@@ -1,14 +1,16 @@
 package Data;
 
-import DAO.DAOFactory;
-import DAO.ReservationDAO;
-import DAO.SalarieDAO;
-import DAO.VehiculeDAO;
-import Modele.Flotte;
-import Service.AuthService;
-import Service.ExportService;
-import Service.ReservationService;
-import Service.VehiculeService;
+import fr.vannes.DAO.DAOFactory;
+import fr.vannes.DAO.ReservationDAO;
+import fr.vannes.DAO.SalarieDAO;
+import fr.vannes.DAO.VehiculeDAO;
+import fr.vannes.Modele.Flotte;
+import fr.vannes.Service.AuthService;
+import fr.vannes.Service.ExportService;
+import fr.vannes.Service.ReservationService;
+import fr.vannes.Service.VehiculeService;
+
+import java.io.IOException;
 
 public final class DataFactory {
 
@@ -20,7 +22,7 @@ public final class DataFactory {
     private final AuthService authService;
 
 
-    private DataFactory() {
+    private DataFactory() throws IOException {
         DAOFactory daoFactory;
         try {
             daoFactory = DAOFactory.getInstance();
@@ -42,7 +44,7 @@ public final class DataFactory {
     }
 
 
-    public static synchronized DataFactory getInstance() {
+    public static synchronized DataFactory getInstance() throws IOException {
         if (instance == null) {
             instance = new DataFactory();
         }

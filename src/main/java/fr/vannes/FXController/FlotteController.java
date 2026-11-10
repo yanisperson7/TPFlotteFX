@@ -1,24 +1,19 @@
 package fr.vannes.FXController;
 
-<<<<<<< Updated upstream:src/main/java/fr/vannes/FXController/FlotteController.java
 import fr.vannes.Exceptions.RegleGestionException;
 import fr.vannes.Modele.Vehicule;
 import fr.vannes.Service.VehiculeService;
-=======
-import Exceptions.RegleGestionException;
-import Modele.Flotte;
-import Modele.Vehicule;
 import Data.DataFactory;
-import Service.VehiculeService;
+
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
->>>>>>> Stashed changes:src/main/java/FXController/FlotteController.java
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class FlotteController {
@@ -54,7 +49,7 @@ public class FlotteController {
     private final ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
         vehiculeService = DataFactory.getInstance().getVehiculeService();
 
 

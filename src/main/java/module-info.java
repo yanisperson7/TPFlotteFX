@@ -11,7 +11,6 @@ module fr.vannes {
     requires sib.api.v3.sdk;
     requires java.desktop;
 
-<<<<<<< Updated upstream
     opens fr.vannes.FXApplication to javafx.fxml, javafx.graphics, javafx.base;
     exports fr.vannes.FXApplication;
     exports fr.vannes.FXController;
@@ -21,13 +20,4 @@ module fr.vannes {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
 }
-    // autorisation pour Jackson
-=======
 
-    opens Modele to javafx.base;
-    opens FXApplication to javafx.fxml, javafx.graphics;
-    exports FXApplication;
-    exports FXController;
-    opens FXController to javafx.fxml, javafx.graphics;
-}
->>>>>>> Stashed changes
