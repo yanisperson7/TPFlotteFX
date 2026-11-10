@@ -12,13 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1430.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vannes.FXController.ReservationController">
+<AnchorPane prefHeight="750.0" prefWidth="1430.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.vannes.FXController.ReservationController">
    <children>
       <HBox prefHeight="258.0" prefWidth="766.0">
          <children>
-            <AnchorPane prefHeight="258.0" prefWidth="1500.0">
+            <AnchorPane onMouseClicked="#onSalarieClick" prefHeight="240.0" prefWidth="968.0">
                <children>
-                  <VBox layoutX="30.0" layoutY="25.0" prefHeight="209.0" prefWidth="206.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="760.0" AnchorPane.topAnchor="25.0">
+                  <VBox layoutX="30.0" layoutY="25.0" prefHeight="208.0" prefWidth="208.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="730.0" AnchorPane.topAnchor="25.0">
                      <children>
                         <Text fx:id="titreFormulaire" strokeType="OUTSIDE" strokeWidth="0.0" text="Creer un  salarié" wrappingWidth="177.33673095703125">
                            <font>
@@ -45,7 +45,7 @@
                         </TextField>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="ButValiderSalarie" mnemonicParsing="false" text="Valider">
+                              <Button fx:id="ButValiderSalarie" mnemonicParsing="false" onAction="#onValiderSalarieClick" text="Valider">
                                  <HBox.margin>
                                     <Insets top="10.0" />
                                  </HBox.margin>
@@ -57,7 +57,14 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Label fx:id="MessageSalarie" wrapText="true" />
+                        <Label fx:id="MessageSalarie" prefHeight="41.0" prefWidth="208.0" wrapText="true">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                   <VBox layoutX="254.0" layoutY="25.0" prefHeight="209.0" prefWidth="206.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="536.0" AnchorPane.topAnchor="25.0">
@@ -94,7 +101,14 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Label fx:id="MessageDepart" wrapText="true" />
+                        <Label fx:id="MessageDepart" prefHeight="41.0" prefWidth="208.0" wrapText="true">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Label>
                      </children>
                   </VBox>
                   <VBox layoutX="472.0" layoutY="25.0" prefHeight="209.0" prefWidth="206.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="472.0" AnchorPane.rightAnchor="318.0" AnchorPane.topAnchor="25.0">
@@ -138,7 +152,7 @@
             </AnchorPane>
          </children>
       </HBox>
-      <HBox layoutX="-2.0" layoutY="215.0" prefHeight="493.0" prefWidth="1430.0">
+      <HBox layoutY="258.0" prefHeight="445.0" prefWidth="1430.0">
          <children>
             <AnchorPane prefHeight="579.0" prefWidth="1432.0">
                <children>
@@ -152,7 +166,7 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="490.0" layoutY="8.0" prefHeight="25.0" prefWidth="169.0" text="Historique d'un salarié" AnchorPane.bottomAnchor="460.0">
+                  <Label layoutX="392.0" layoutY="8.0" prefHeight="25.0" prefWidth="169.0" text="Historique d'un salarié" AnchorPane.bottomAnchor="460.0">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -177,17 +191,15 @@
                         <TableColumn fx:id="Etat" prefWidth="75.0" text="Etat" />
                      </columns>
                   </TableView>
-                  <TableView layoutX="490.0" layoutY="39.0" prefHeight="388.0" prefWidth="450.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="490.0" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="39.0">
+                  <TableView fx:id="TableauHistorique" layoutX="392.0" layoutY="39.0" prefHeight="388.0" prefWidth="553.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="485.0" AnchorPane.topAnchor="39.0">
                      <columns>
-                        <TableColumn prefWidth="75.0" text="Immat." />
-                        <TableColumn prefWidth="75.0" text="Marque" />
-                        <TableColumn prefWidth="75.0" text="Modèle" />
-                        <TableColumn prefWidth="75.0" text="Mise circ." />
-                        <TableColumn prefWidth="75.0" text="Km" />
-                        <TableColumn prefWidth="75.0" text="Etat" />
+                        <TableColumn fx:id="DateDepart" prefWidth="160.0" text="Date de départ" />
+                        <TableColumn fx:id="DateRetour" prefWidth="168.0" text="Date de retour" />
+                        <TableColumn fx:id="ImmatriculationHistorique" prefWidth="111.0" text="Immatriculation" />
+                        <TableColumn fx:id="Vehicule" prefWidth="112.0" text="Véhicule" />
                      </columns>
                   </TableView>
-                  <TableView fx:id="TableauSalarie" layoutX="14.0" layoutY="39.0" prefHeight="388.0" prefWidth="362.0">
+                  <TableView fx:id="TableauSalarie" layoutX="14.0" layoutY="39.0" onMouseClicked="#onSalarieClick" prefHeight="380.0" prefWidth="362.0">
                      <columns>
                         <TableColumn fx:id="Matricule" prefWidth="93.0" text="Matricule" />
                         <TableColumn fx:id="Nom" prefWidth="133.0" text="Nom" />
@@ -195,6 +207,9 @@
                      </columns>
                   </TableView>
                </children>
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
             </AnchorPane>
          </children>
       </HBox>

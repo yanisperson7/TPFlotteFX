@@ -1,5 +1,7 @@
 package fr.vannes.FXApplication;
 
+import fr.vannes.FXController.FlotteController;
+import fr.vannes.Service.VehiculeService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +19,8 @@ public class VehiculeApplication extends Application {
         stage.sizeToScene();
         stage.centerOnScreen();
         stage.show();
+        /*FlotteController flotteController = fxmlLoader.getController();
+        flotteController.loadData();*/
     }
 
 }

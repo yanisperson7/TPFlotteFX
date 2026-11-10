@@ -12,6 +12,10 @@ import Service.MailService;
 import Service.PdfService;
 import fr.vannes.Service.ExportService;
 import fr.vannes.Service.VehiculeService;
+import fr.vannes.DAO.*;
+import fr.vannes.Exceptions.*;
+import fr.vannes.Modele.*;
+import fr.vannes.Service.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -350,21 +354,23 @@ public class ExportController {
         protected String donneesFlotte () {
             String res = "";
 
-            try {
-                List<Vehicule> flotte = vehiculeService.getFlotte();
+        try {
+            List<Vehicule> flotte = vehiculeService.getFlotte();
+            List<Integer> vehiculeNonDispo = vehiculeService.estEnDeplacement();
 
-                res += "+-----------+----------+-----------+------------+-----------+----------------+\n";
-                res += String.format("| %-10.10s| %-9.9s| %-10.10s| %-11.11s| %-10.10s| %-15.15s|\n", "Immat.", "Marque", "Modèle", "Mise circ", "Km", "Etat");
-                for (Vehicule v : flotte) {
-                    Boolean enDeplacement = vehiculeService.estEnDeplacement(v.getId());
-                    res += String.format("| %-10.10s| %-9.9s| %-10.10s| %-11.11s| %-10.10s| %-15.15s|\n", v.getImmatriculation(), v.getMarque(), v.getModele(), v.getDate_mise_circulation(), v.getKilometrage(), enDeplacement ? "En déplacement" : "Disponible");
-                    ;
-                }
-                res += "+-----------+----------+-----------+------------+-----------+----------------+\n";
-            } catch (RegleGestionException e) {
-                return e.getMessage();
+            res += "+-----------+----------+-----------+------------+-----------+----------------+\n";
+            res += String.format("| %-10.10s| %-9.9s| %-10.10s| %-11.11s| %-10.10s| %-15.15s|\n", "Immat.", "Marque", "Modèle", "Mise circ", "Km", "Etat");
+            for (Vehicule v : flotte){
+                Boolean enDeplacement = vehiculeNonDispo.contains(v.getId());
+                res+=String.format("| %-10.10s| %-9.9s| %-10.10s| %-11.11s| %-10.10s| %-15.15s|\n", v.getImmatriculation(), v.getMarque(), v.getModele(), v.getDate_mise_circulation(), v.getKilometrage(), enDeplacement?"En déplacement":"Disponible");;
             }
-            return res;
+            res += "+-----------+----------+-----------+------------+-----------+----------------+\n";
+        }catch (RegleGestionException e){
+            return e.getMessage();
         }
+
+        return res;
+
+    }
 
     }

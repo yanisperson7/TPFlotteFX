@@ -53,3 +53,5 @@ dao.properties
 mvnw
 mvnw.cmd
 .mvn/
+
+mail.properties
