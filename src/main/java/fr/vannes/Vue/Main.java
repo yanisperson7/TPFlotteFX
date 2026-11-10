@@ -100,7 +100,6 @@ public class Main {
                 case 11: // PDF & mail
                     flotteController.etatFlottePdf();
                     break;
-
                 case 12:
                     menuConsole.afficher(etatController.exporter());
                     break;

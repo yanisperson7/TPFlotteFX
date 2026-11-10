@@ -14,9 +14,11 @@ module fr.vannes {
     opens fr.vannes.FXApplication to javafx.fxml, javafx.graphics, javafx.base;
     exports fr.vannes.FXApplication;
     exports fr.vannes.FXController;
-    opens fr.vannes.Modele to javafx.base;
+    opens fr.vannes.Modele to javafx.base, javafx.fxml;
     opens fr.vannes.FXController to javafx.fxml, javafx.graphics, javafx.base;
     // pour Jackson 2.x
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
+    // autorisation pour Jackson
+    //opens org.example.tpflottefx to com.fasterxml.jackson.databind;
 }

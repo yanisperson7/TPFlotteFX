@@ -25,8 +25,9 @@ public class FichierExport {
         }
         if (extension.equalsIgnoreCase("enc")) {
             this.etat.setValue("Chiffré");
+        } else {
+            this.etat.setValue("Lisible");
         }
-        this.etat.setValue("Lisible");
     }
 
     public String getNom() {
