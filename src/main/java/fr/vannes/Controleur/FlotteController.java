@@ -3,6 +3,7 @@ package fr.vannes.Controleur;
 import fr.vannes.Exceptions.*;
 import fr.vannes.Modele.*;
 import fr.vannes.Service.*;
+import javafx.scene.Scene;
 import sendinblue.ApiException;
 
 import java.io.IOException;
@@ -16,17 +17,18 @@ import java.util.Map;
 
 public class FlotteController {
     VehiculeService vehiculeService;
-    private PdfService pdfService;
-    private MailService mailService;
+    private Service.PdfService pdfService;
+    private Service.MailService mailService;
     private String path;
 
     public FlotteController(VehiculeService vehiculeService) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
         this.vehiculeService = vehiculeService;
         this.path = "export/" + LocalDateTime.now().format(formatter) + "_etat-flotte.pdf";
-        this.pdfService = new PdfService(path);
-        this.mailService = new MailService();
+        this.pdfService = new Service.PdfService(path);
+        this.mailService = new Service.MailService();
     }
+
 
     public String afficherFlotte(){
         String res = "";
@@ -37,7 +39,7 @@ public class FlotteController {
             res += "+-----------+----------+-----------+------------+-----------+----------------+\n";
             res += String.format("| %-10.10s| %-9.9s| %-10.10s| %-11.11s| %-10.10s| %-15.15s|\n", "Immat.", "Marque", "Modèle", "Mise circ", "Km", "Etat");
             for (Vehicule v : flotte){
-                Boolean enDeplacement = vehiculeService.estEnDeplacement(v.getId());
+                Boolean enDeplacement = false;
                 res+=String.format("| %-10.10s| %-9.9s| %-10.10s| %-11.11s| %-10.10s| %-15.15s|\n", v.getImmatriculation(), v.getMarque(), v.getModele(), v.getDate_mise_circulation(), v.getKilometrage(), enDeplacement?"En déplacement":"Disponible");;
             }
             res += "+-----------+----------+-----------+------------+-----------+----------------+\n";
@@ -84,7 +86,7 @@ public class FlotteController {
             String res = "";
             String etat = "";
             Vehicule vehicule = vehiculeService.rechercherParImmatriculation(immat);
-            if(vehiculeService.estEnDeplacement(vehicule.getId())){
+            if(false){
                 Reservation reservation     = vehiculeService.getReservationEncours(vehicule.getId());
                 Salarie salarie             = reservation.getSalarie();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");

@@ -19,11 +19,4 @@ module fr.vannes {
     // pour Jackson 2.x
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
-    // autorisation pour Jackson
-    //opens org.example.tpflottefx to com.fasterxml.jackson.databind;
-    opens Modele to javafx.fxml, javafx.base;
-    opens FXApplication to javafx.fxml, javafx.graphics;
-    exports FXApplication;
-    exports FXController;
-    opens FXController to javafx.fxml, javafx.graphics;
 }

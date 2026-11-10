@@ -56,17 +56,22 @@ public class ReservationDAOImpl implements ReservationDAO {
 
     @Override
     public boolean estEnDeplacement(int idVehicule) {
-        String query = "SELECT COUNT(*) FROM " + tableReservation + " WHERE " + idVehiculeCOL + "=? " + " AND " + dateRetourCOL + " IS NULL ";
+        return false;
+    }
+
+    public List vehiculeNd() {
+        String query = "SELECT " + idVehiculeCOL + " FROM " + tableReservation + " WHERE " +  dateRetourCOL + " IS NULL ";
 
         try {
             Connection c = DAOFactory.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(query);
-            ps.setInt(1, idVehicule);
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            boolean resultat = rs.getInt(1) > 0;
-            c.close();
-            return resultat;
+            List<Integer> list = new ArrayList<>();
+            while (rs.next()) {
+                list.add(rs.getInt("id_vehicule"));
+            }
+            return list;
+
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException("Erreur estEnDeplacement", e);
         }

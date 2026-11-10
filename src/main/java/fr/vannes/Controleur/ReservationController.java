@@ -74,4 +74,8 @@ public class ReservationController {
             return null;
         }
     }
+
+    public List<Salarie> listerSalaries() {
+        return reservationService.listerSalaries();
+    }
 }

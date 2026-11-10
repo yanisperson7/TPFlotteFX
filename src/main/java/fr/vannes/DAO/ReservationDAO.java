@@ -4,6 +4,7 @@ import fr.vannes.Modele.Reservation;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 public interface ReservationDAO {
     void creer(Reservation r);
@@ -14,4 +15,5 @@ public interface ReservationDAO {
     List<Reservation> listerParSalarie(String matricule);
     List<Reservation> lister();
     Reservation trouverDerniereParVehicule(int vehiculeId);
+    List<Integer> vehiculeNd();
 }
