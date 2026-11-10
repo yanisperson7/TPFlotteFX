@@ -117,11 +117,12 @@ public class ExportController {
 
         try {
             List<Vehicule> flotte = vehiculeService.getFlotte();
+            List<Integer> vehiculeNonDispo = vehiculeService.estEnDeplacement();
 
             res += "+-----------+----------+-----------+------------+-----------+----------------+\n";
             res += String.format("| %-10.10s| %-9.9s| %-10.10s| %-11.11s| %-10.10s| %-15.15s|\n", "Immat.", "Marque", "Modèle", "Mise circ", "Km", "Etat");
             for (Vehicule v : flotte){
-                Boolean enDeplacement = vehiculeService.estEnDeplacement(v.getId());
+                Boolean enDeplacement = vehiculeNonDispo.contains(v.getId());
                 res+=String.format("| %-10.10s| %-9.9s| %-10.10s| %-11.11s| %-10.10s| %-15.15s|\n", v.getImmatriculation(), v.getMarque(), v.getModele(), v.getDate_mise_circulation(), v.getKilometrage(), enDeplacement?"En déplacement":"Disponible");;
             }
             res += "+-----------+----------+-----------+------------+-----------+----------------+\n";

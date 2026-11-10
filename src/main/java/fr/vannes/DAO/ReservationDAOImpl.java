@@ -60,7 +60,7 @@ public class ReservationDAOImpl implements ReservationDAO {
     }
 
     public List vehiculeNd() {
-        String query = "SELECT " + idVehiculeCOL + "," +  dateRetourCOL + " FROM " + tableReservation + " WHERE " +  dateRetourCOL + " IS NULL ";
+        String query = "SELECT " + idVehiculeCOL + " FROM " + tableReservation + " WHERE " +  dateRetourCOL + " IS NULL ";
 
         try {
             Connection c = DAOFactory.getInstance().getConnection();
