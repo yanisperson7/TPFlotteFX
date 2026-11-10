@@ -1,6 +1,7 @@
 package fr.vannes.FXController;
 
 import Data.DataFactory;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import fr.vannes.Exceptions.RegleGestionException;
 import fr.vannes.Modele.*;
 import fr.vannes.Service.ReservationService;
@@ -18,6 +19,8 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 public class ReservationController {
     // Tableaux
@@ -63,29 +66,20 @@ public class ReservationController {
     private ReservationService reservationService;
     private VehiculeService vehiculeService;
 
-    private List<Integer> listeVehiculeNonDispo = new ArrayList<>();
-
     private final ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
     private final ObservableList<Salarie> salaries = FXCollections.observableArrayList();
     private final ObservableList<Reservation> reservations = FXCollections.observableArrayList();
+
+    private List<Integer> idsEnDeplacement = new ArrayList<>();
 
 
     @FXML
     private void initialize() throws IOException {
 
         reservationService = DataFactory.getInstance().getReservationService();
-        salaries.setAll(reservationService.listerSalaries());
-
-        TableauVehicule.setItems(vehicules);
-        TableauSalarie.setItems(salaries);
-        TableauHistorique.setItems(reservations);
-
         vehiculeService = DataFactory.getInstance().getVehiculeService();
         vehicules.setAll(vehiculeService.getFlotte());
-
-        listeVehiculeNonDispo = vehiculeService.estEnDeplacement();
-        salaries.setAll(reservationService.listerSalaries());
-
+        List<Integer> listeVehiculeNonDispo = vehiculeService.estEnDeplacement();
         // Tableau de véhicules
         Immatriculation.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
         Marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
@@ -97,7 +91,8 @@ public class ReservationController {
         //TableauVehicule.setItems(vehicules);
         //TableauVehicule.setItems(FXCollections.observableArrayList(vehiculeService.getFlotte()));
         loadTableAsync();
-        Etat.setCellValueFactory(c -> new SimpleStringProperty((listeVehiculeNonDispo.contains (c.getValue().getId())) ? "En déplacement" : "Disponible"));
+        TableauVehicule.setItems(vehicules);
+        Etat.setCellValueFactory(c -> new SimpleStringProperty(idsEnDeplacement.contains (c.getValue().getId()) ? "En déplacement" : "Disponible"));
 
         // Tableau des salaries
         Matricule.setCellValueFactory(new PropertyValueFactory<>("matricule"));
@@ -119,12 +114,13 @@ public class ReservationController {
             @Override
             protected List<Vehicule> call() throws Exception {
                 //je simule le temps de chargement d'une bdd distante
+                idsEnDeplacement = vehiculeService.estEnDeplacement();
                 return vehiculeService.getFlotte();
             }
         };
 
         task.setOnSucceeded(e -> {
-            TableauVehicule.getItems().setAll(task.getValue());
+            vehicules.setAll(task.getValue());
             //le placeholder est une propriété de TableView et ListView
             //il s'affiche automatiquement à la place de lignes quand la liste
             // d'élements est vide
@@ -137,7 +133,7 @@ public class ReservationController {
                     + task.getException().getMessage()));
         });
 
-        TableauVehicule.getItems().clear();               //intialise la tableView en la vidant
+        vehicules.clear();               //intialise la tableView en la vidant
         TableauVehicule.setPlaceholder(new ProgressIndicator());//et affiche le sablier
 
         Thread thread = new Thread(task, "load-media");
@@ -147,13 +143,18 @@ public class ReservationController {
 
     @FXML
     private void onSalarieClick() {
-        Salarie salarie = TableauSalarie.getSelectionModel().getSelectedItem();
-        if (salarie != null) {
-            String matricule = salarie.getMatricule();
-            HistoriqueReservations<Salarie, Timestamp, Reservation> historique = reservationService.historiqueSalarie(matricule);
+        rafraichirHistorique();
+    }
 
-            TableauHistorique.getItems().setAll(historique.getReservations().values());
+    private void rafraichirHistorique() {
+        Salarie salarie = TableauSalarie.getSelectionModel().getSelectedItem();
+        if (salarie == null) {
+            TableauHistorique.getItems().clear();
+            return;
         }
+        HistoriqueReservations<Salarie, Timestamp, Reservation> historique =
+                reservationService.historiqueSalarie(salarie.getMatricule());
+        TableauHistorique.getItems().setAll(historique.getReservations().values());
     }
 
     @FXML
@@ -205,7 +206,7 @@ public class ReservationController {
     @FXML
     private void onValiderDepartClick() {
         String matricule = TextMatriculeDepart.getText().trim();
-        String immatriculation = TextImmatriculationDepart.getText().trim().toUpperCase();
+        String immatriculation = TextImmatriculationDepart.getText().trim();
 
         if (matricule.isEmpty() || immatriculation.isEmpty()) {
             MessageDepart.setStyle("-fx-text-fill: red;");
@@ -222,12 +223,15 @@ public class ReservationController {
         try {
             Integer.parseInt(matricule);
             reservationService.enregistrerDepart(matricule, immatriculation);
+            idsEnDeplacement = vehiculeService.estEnDeplacement();
+            TableauVehicule.refresh();
+            rafraichirHistorique();
 
             TextMatriculeDepart.clear();
             TextImmatriculationDepart.clear();
 
             MessageDepart.setStyle("-fx-text-fill: green;");
-            MessageDepart.setText("Le Départ de " + matricule + " avec " + immatriculation + " a été enregistré");
+            MessageDepart.setText("Le Départ de " + matricule + " avec " + immatriculation + "a été enregistré");
 
         } catch (NumberFormatException e) {
             MessageDepart.setStyle("-fx-text-fill: red;");
@@ -253,6 +257,9 @@ public class ReservationController {
         try {
             int kilometrage = Integer.parseInt(TextKilometrage.getText());
             reservationService.enregistrerRetour(immatriculation, kilometrage);
+            idsEnDeplacement = vehiculeService.estEnDeplacement();
+            TableauVehicule.refresh();
+            rafraichirHistorique();
 
             TextImmatriculationRetour.clear();
             TextKilometrage.clear();
@@ -263,11 +270,5 @@ public class ReservationController {
             MessageRetour.setStyle("-fx-text-fill: red;");
             MessageRetour.setText("Refusé : " + e.getMessage());
         }
-    }
-
-    private void refresh() {
-        listeVehiculeNonDispo = vehiculeService.estEnDeplacement();
-        loadTableAsync();
-        onSalarieClick();
     }
 }
