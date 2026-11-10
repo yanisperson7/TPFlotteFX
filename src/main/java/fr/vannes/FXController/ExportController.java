@@ -1,27 +1,16 @@
-package FXController;
+package fr.vannes.FXController;
 
-import DAO.ReservationDAOImpl;
-import DAO.SalarieDAOImpl;
-import DAO.VehiculeDAOImpl;
-import Exceptions.RegleGestionException;
-import FXApplication.AuthApplication;
-import Modele.FichierExport;
-import Modele.Flotte;
-import Modele.Vehicule;
-import Service.MailService;
-import Service.PdfService;
-import Service.VehiculeService;
+import fr.vannes.DAO.*;
+import fr.vannes.Exceptions.*;
+import fr.vannes.Modele.*;
+import fr.vannes.Service.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import sendinblue.ApiException;
 
 import java.io.IOException;
@@ -45,8 +34,8 @@ public class ExportController {
     @FXML private TextField txtEtat;
 
     private final ObservableList<FichierExport> fichiers = FXCollections.observableArrayList();
-    private PdfService pdfService;
-    private MailService mailService;
+    private Service.PdfService pdfService;
+    private Service.MailService mailService;
     private VehiculeService vehiculeService;
     private String path;
 
@@ -84,8 +73,8 @@ public class ExportController {
     private void initialize() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
         this.path = "export/" + LocalDateTime.now().format(formatter) + "_etat-flotte.pdf";
-        this.pdfService = new PdfService(path);
-        this.mailService = new MailService();
+        this.pdfService = new Service.PdfService(path);
+        this.mailService = new Service.MailService();
         this.vehiculeService = new VehiculeService(new Flotte(), new ReservationDAOImpl(), new VehiculeDAOImpl());
 
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));

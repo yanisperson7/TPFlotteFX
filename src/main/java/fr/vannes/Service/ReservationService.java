@@ -90,7 +90,7 @@ public class ReservationService {
             throw new RegleGestionException("kilométrage inférieur au compteur actuel");
         }
 
-        // Persistance : deux fr.vannes.DAO pour une seule action
+
         reservationDAO.cloturer(v.getId(), new Timestamp(System.currentTimeMillis()), kmRetour);
         v.setKilometrage(kmRetour);
         vehiculeDAO.modifier(v);
@@ -128,5 +128,9 @@ public class ReservationService {
             }
             h.ajouter(r.getDateDepart(), r);
         }
+    }
+
+    public List<Salarie> listerSalaries() {
+        return salarieDAO.lister();
     }
 }
