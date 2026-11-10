@@ -5,16 +5,23 @@ import fr.vannes.Modele.Vehicule;
 import fr.vannes.Service.VehiculeService;
 import Data.DataFactory;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Thread.sleep;
 
 public class FlotteController {
     @FXML
@@ -48,21 +55,24 @@ public class FlotteController {
 
     private final ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
 
+
+
     @FXML
     private void initialize() throws IOException {
         vehiculeService = DataFactory.getInstance().getVehiculeService();
-
-
+        vehicules.setAll(vehiculeService.getFlotte());
 
         immatColumn.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
         marqueColumn.setCellValueFactory(new PropertyValueFactory<>("marque"));
         modeleColumn.setCellValueFactory(new PropertyValueFactory<>("modele"));
         miseEnCirculationColumn.setCellValueFactory(new PropertyValueFactory<>("date_mise_circulation"));
         kmColumn.setCellValueFactory(new PropertyValueFactory<>("kilometrage"));
-        etatColumn.setCellValueFactory(c -> new SimpleStringProperty(vehiculeService.estEnDeplacement(c.getValue().getId()) ? "En déplacement" : "Disponible"));
         list.setItems(vehicules);
 
-        list.setItems(FXCollections.observableArrayList(vehiculeService.getFlotte()));
+        Platform.runLater(() -> {
+            loadTableAsync();
+
+        });
 
         list.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
             immat.setText(newV == null ? "" : newV.getImmatriculation());
@@ -74,22 +84,69 @@ public class FlotteController {
 
     }
 
+    public void loadEtatVehicule() throws IOException {
+
+    }
+
+    @FXML
+    private void loadTableAsync() {
+
+        Task<List<Vehicule>> task = new Task<>() {
+            @Override
+            protected List<Vehicule> call() throws Exception {
+                //je simule le temps de chargement d'une bdd distante
+                List <Vehicule> listevehicules= new ArrayList<>();
+
+                return vehiculeService.getFlotte();
+                // ou return personneService.getALl();
+            }
+        };
+
+        task.setOnSucceeded(e -> {
+
+            List<Integer> listV = vehiculeService.estEnDeplacement();
+
+            etatColumn.setCellValueFactory(c -> new SimpleStringProperty((listV.contains (c.getValue().getId())) ? "En déplacement" : "Disponible"));
+            list.setItems(vehicules);
+
+            list.getItems().setAll(task.getValue());
+
+            list.setPlaceholder(new Label("Aucun média"));
+
+        });
+
+        task.setOnFailed(e -> {
+            task.getException().printStackTrace();
+            list.setPlaceholder(new Label("Erreur de chargement : "
+                    + task.getException().getMessage()));
+        });
+
+        list.getItems().clear();               //intialise la tableView en la vidant
+        list.setPlaceholder(new ProgressIndicator());//et affiche le sablier
+
+        Thread thread = new Thread(task, "load-media");
+        thread.setDaemon(true);
+        thread.start();
+    }
+
     @FXML
     public void onAjouterVehicule() {
-
         String immatSaisie = immat.getText().trim().toUpperCase();
         if (immatSaisie.isEmpty()) {
+            message.setStyle("-fx-text-fill: black;");
             message.setText("Veuillez saisir une immatriculation");
             return;
         }
         String marqueSaisie = marque.getText().trim();
         String modeleSaisie = modele.getText().trim();
         if (marqueSaisie.isEmpty() || modeleSaisie.isEmpty()) {
+            message.setStyle("-fx-text-fill: black;");
             message.setText("Veuillez saisir une marque et un modèle");
             return;
         }
         LocalDate dateSaisie = dateMiseCirculation.getValue();
         if (dateSaisie == null) {
+            message.setStyle("-fx-text-fill: black;");
             message.setText("Choisissez une date de mise en circulation");
             return;
         }
@@ -97,13 +154,16 @@ public class FlotteController {
         try {
             kmSaisi = Integer.parseInt(km.getText().trim());
         } catch (NumberFormatException e) {
+            message.setStyle("-fx-text-fill: black;");
             message.setText("Le kilométrage doit être un nombre");
             return;
         }
         try {
             Vehicule vehicule = new Vehicule(0, immatSaisie, marqueSaisie, modeleSaisie, dateSaisie, kmSaisi);
             vehiculeService.ajouterVehicule(vehicule);
-
+            vehicules.setAll(vehiculeService.getFlotte());
+            list.getSelectionModel().select(vehicule);
+            list.scrollTo(vehicule);
             message.setStyle("-fx-text-fill: green;");
             message.setText("Véhicule " + immatSaisie + " ajouté !");
 
@@ -121,18 +181,18 @@ public class FlotteController {
     public void onSupprimerVehicule() {
         Vehicule selection = list.getSelectionModel().getSelectedItem();
         if (selection == null) {
+            message.setStyle("-fx-text-fill: black;");
             message.setText("Choisissez un véhicule à supprimer");
             return;
         }
-
         try {
             vehiculeService.retirerVehicule(selection.getImmatriculation());
-
+            vehicules.setAll(vehiculeService.getFlotte());
             message.setStyle("-fx-text-fill: green;");
             message.setText("Véhicule " + selection.getImmatriculation() + " supprimé !");
         } catch (RegleGestionException e) {
             message.setStyle("-fx-text-fill: red;");
-            message.setText("Saisie invalide : " + e.getMessage());
+            message.setText("Erreur : Véhicule en déplacement : " + e.getMessage());
 
         }
     }
