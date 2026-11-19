@@ -1,7 +1,6 @@
 package fr.vannes.FXController;
 
 import Data.DataFactory;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import fr.vannes.Exceptions.RegleGestionException;
 import fr.vannes.Modele.*;
 import fr.vannes.Service.ReservationService;
@@ -23,8 +22,6 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.Thread.sleep;
 
 public class ReservationController {
     // Tableaux
@@ -62,8 +59,15 @@ public class ReservationController {
     @FXML private TextField TextImmatriculationDepart;
     @FXML private Label MessageDepart;
 
+    //Enregistrer un retour
+    @FXML private TextField TextImmatriculationRetour;
+    @FXML private TextField TextKilometrage;
+    @FXML private Label MessageRetour;
+
     private ReservationService reservationService;
     private VehiculeService vehiculeService;
+
+    private List<Integer> listeVehiculeNonDispo = new ArrayList<>();
 
     private final ObservableList<Vehicule> vehicules = FXCollections.observableArrayList();
     private final ObservableList<Salarie> salaries = FXCollections.observableArrayList();
@@ -74,8 +78,18 @@ public class ReservationController {
     private void initialize() throws IOException {
 
         reservationService = DataFactory.getInstance().getReservationService();
+        salaries.setAll(reservationService.listerSalaries());
+
+        TableauVehicule.setItems(vehicules);
+        TableauSalarie.setItems(salaries);
+        TableauHistorique.setItems(reservations);
+
         vehiculeService = DataFactory.getInstance().getVehiculeService();
-        List<Integer> listeVehiculeNonDispo = vehiculeService.estEnDeplacement();
+        vehicules.setAll(vehiculeService.getFlotte());
+
+        listeVehiculeNonDispo = vehiculeService.estEnDeplacement();
+        salaries.setAll(reservationService.listerSalaries());
+
         // Tableau de véhicules
         Immatriculation.setCellValueFactory(new PropertyValueFactory<>("immatriculation"));
         Marque.setCellValueFactory(new PropertyValueFactory<>("marque"));
@@ -195,7 +209,7 @@ public class ReservationController {
     @FXML
     private void onValiderDepartClick() {
         String matricule = TextMatriculeDepart.getText().trim();
-        String immatriculation = TextImmatriculationDepart.getText().trim();
+        String immatriculation = TextImmatriculationDepart.getText().trim().toUpperCase();
 
         if (matricule.isEmpty() || immatriculation.isEmpty()) {
             MessageDepart.setStyle("-fx-text-fill: red;");
@@ -217,7 +231,7 @@ public class ReservationController {
             TextImmatriculationDepart.clear();
 
             MessageDepart.setStyle("-fx-text-fill: green;");
-            MessageDepart.setText("Le Départ de " + matricule + " avec " + immatriculation + "a été enregistré");
+            MessageDepart.setText("Le Départ de " + matricule + " avec " + immatriculation + " a été enregistré");
 
         } catch (NumberFormatException e) {
             MessageDepart.setStyle("-fx-text-fill: red;");
@@ -231,7 +245,34 @@ public class ReservationController {
 
     @FXML
     private void onValiderRetourClick() {
+        String immatriculation = TextImmatriculationRetour.getText().trim().toUpperCase();
+        String kmSaisi = TextKilometrage.getText();
 
+        if (immatriculation.isEmpty() || kmSaisi.isEmpty()) {
+            MessageRetour.setStyle("-fx-text-fill: red;");
+            MessageRetour.setText("Veuillez remplir tous les champs");
+            return;
+        }
+
+        try {
+            int kilometrage = Integer.parseInt(TextKilometrage.getText());
+            reservationService.enregistrerRetour(immatriculation, kilometrage);
+
+            TextImmatriculationRetour.clear();
+            TextKilometrage.clear();
+
+            MessageRetour.setStyle("-fx-text-fill: green;");
+            MessageRetour.setText("Le retour de " + immatriculation + " a été enregistré");
+        } catch (RegleGestionException e) {
+            MessageRetour.setStyle("-fx-text-fill: red;");
+            MessageRetour.setText("Refusé : " + e.getMessage());
+        }
+    }
+
+    private void refresh() {
+        listeVehiculeNonDispo = vehiculeService.estEnDeplacement();
+        loadTableAsync();
+        onSalarieClick();
     }
 
     @FXML
