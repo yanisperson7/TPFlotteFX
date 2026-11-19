@@ -78,7 +78,7 @@
             </HBox>
          </children>
       </VBox>
-       <TableView maxHeight="-Infinity" fx:id="list" layoutX="456.0" layoutY="70.0" prefHeight="600.0" prefWidth="750.0">
+       <TableView fx:id="list" layoutX="456.0" layoutY="70.0" maxHeight="-Infinity" prefHeight="600.0" prefWidth="750.0">
            <columns>
                <TableColumn fx:id="immatColumn" prefWidth="105.0" text="Immat." />
                <TableColumn fx:id="marqueColumn" prefWidth="130.0" text="Marque" />
@@ -91,5 +91,15 @@
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
            </columnResizePolicy>
        </TableView>
+      <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="6.0" spacing="12.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 1);">
+         <padding>
+            <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+         </padding>
+         <children>
+            <Button mnemonicParsing="false" onAction="#onAccueilButtonClick" style="-fx-background-color: #e9ecef; -fx-text-fill: #495057; -fx-font-weight: bold; -fx-background-radius: 6;" text="Accueil" />
+            <Button mnemonicParsing="false" onAction="#onReservationButtonClick" style="-fx-background-color: #e9ecef; -fx-text-fill: #495057; -fx-font-weight: bold; -fx-background-radius: 6;" text="Réservations" />
+            <Button mnemonicParsing="false" onAction="#onExportButtonClick" style="-fx-background-color: #e9ecef; -fx-text-fill: #495057; -fx-font-weight: bold; -fx-background-radius: 6;" text="Export" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

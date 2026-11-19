@@ -1,7 +1,6 @@
 package Data;
 
 import Service.MailService;
-import Service.PdfService;
 import fr.vannes.DAO.DAOFactory;
 import fr.vannes.DAO.ReservationDAO;
 import fr.vannes.DAO.SalarieDAO;
@@ -23,7 +22,7 @@ public final class DataFactory {
     private final AuthService authService;
     private final String exportPath;
     private final Service.MailService mailService;
-    private final Service.PdfService pdfService;
+    private final PdfService pdfService;
 
 
     private DataFactory() throws IOException {
@@ -43,7 +42,7 @@ public final class DataFactory {
         Flotte flotte = new Flotte();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
         this.exportPath = "export/" + LocalDateTime.now().format(formatter) + "_etat-flotte.pdf";
-        this.pdfService = new Service.PdfService(exportPath);
+        this.pdfService = new PdfService(exportPath);
         this.mailService = new Service.MailService();
         vehiculeService = new VehiculeService(flotte, reservationDAO, vehiculeDAO);   // charge la flotte depuis la base
         reservationService = new ReservationService(vehiculeDAO, reservationDAO, salarieDAO);
