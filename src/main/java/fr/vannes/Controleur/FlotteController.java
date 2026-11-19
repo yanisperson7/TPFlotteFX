@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class FlotteController {
     VehiculeService vehiculeService;
-    private Service.PdfService pdfService;
+    private PdfService pdfService;
     private Service.MailService mailService;
     private String path;
 
@@ -25,7 +25,7 @@ public class FlotteController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm-ss");
         this.vehiculeService = vehiculeService;
         this.path = "export/" + LocalDateTime.now().format(formatter) + "_etat-flotte.pdf";
-        this.pdfService = new Service.PdfService(path);
+        this.pdfService = new PdfService(path);
         this.mailService = new Service.MailService();
     }
 

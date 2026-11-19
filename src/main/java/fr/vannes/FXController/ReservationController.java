@@ -10,8 +10,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -269,5 +273,71 @@ public class ReservationController {
         listeVehiculeNonDispo = vehiculeService.estEnDeplacement();
         loadTableAsync();
         onSalarieClick();
+    }
+
+    @FXML
+    protected void onAccueilButtonClick() {
+        try {
+            // charger le fichier FXML de la page de destination
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/accueil-view.fxml"));
+            Parent root = loader.load();
+
+            // récupérer la fenêtre (Stage) actuelle à partir d'un composant existant (votre table 'nom')
+            Stage stage = (Stage) TableauVehicule.getScene().getWindow();
+
+            // injecter la nouvelle scène dans la fenêtre
+            stage.setScene(new Scene(root));
+            stage.sizeToScene();
+            stage.centerOnScreen();
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérez l'erreur ici (ex: afficher une alerte si le FXML est introuvable)
+        }
+    }
+
+    @FXML
+    protected void onExportButtonClick() {
+        try {
+            // charger le fichier FXML de la page de destination
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/export-view.fxml"));
+            Parent root = loader.load();
+
+            // récupérer la fenêtre (Stage) actuelle à partir d'un composant existant (votre table 'nom')
+            Stage stage = (Stage) TableauVehicule.getScene().getWindow();
+
+            // injecter la nouvelle scène dans la fenêtre
+            stage.setScene(new Scene(root));
+            stage.sizeToScene();
+            stage.centerOnScreen();
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérez l'erreur ici (ex: afficher une alerte si le FXML est introuvable)
+        }
+    }
+
+    @FXML
+    protected void onVehiculeButtonClick() {
+        try {
+            // charger le fichier FXML de la page de destination
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/vehicule-view.fxml"));
+            Parent root = loader.load();
+
+            // récupérer la fenêtre (Stage) actuelle à partir d'un composant existant (votre table 'nom')
+            Stage stage = (Stage) TableauVehicule.getScene().getWindow();
+
+            // injecter la nouvelle scène dans la fenêtre
+            stage.setScene(new Scene(root));
+            stage.sizeToScene();
+            stage.centerOnScreen();
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Gérez l'erreur ici (ex: afficher une alerte si le FXML est introuvable)
+        }
     }
 }
