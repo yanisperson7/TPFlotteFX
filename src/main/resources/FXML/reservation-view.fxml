@@ -16,9 +16,9 @@
    <children>
       <HBox prefHeight="258.0" prefWidth="766.0">
          <children>
-            <AnchorPane onMouseClicked="#onSalarieClick" prefHeight="240.0" prefWidth="968.0">
+            <AnchorPane onMouseClicked="#onSalarieClick" prefHeight="258.0" prefWidth="987.0">
                <children>
-                  <VBox layoutX="30.0" layoutY="25.0" prefHeight="208.0" prefWidth="208.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="730.0" AnchorPane.topAnchor="25.0">
+                  <VBox layoutX="30.0" layoutY="25.0" prefHeight="210.0" prefWidth="210.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="730.0" AnchorPane.topAnchor="25.0">
                      <children>
                         <Text fx:id="titreFormulaire" strokeType="OUTSIDE" strokeWidth="0.0" text="Creer un  salarié" wrappingWidth="177.33673095703125">
                            <font>
@@ -67,7 +67,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox layoutX="254.0" layoutY="25.0" prefHeight="209.0" prefWidth="206.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="536.0" AnchorPane.topAnchor="25.0">
+                  <VBox layoutX="254.0" layoutY="25.0" prefHeight="208.0" prefWidth="208.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="476.0" AnchorPane.topAnchor="25.0">
                      <children>
                         <Text fx:id="titreFormulaire1" strokeType="OUTSIDE" strokeWidth="0.0" text="Enregistrer un départ" wrappingWidth="177.33673095703125">
                            <font>
@@ -89,7 +89,7 @@
                         </TextField>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="ButValiderDepart" mnemonicParsing="false" text="Valider">
+                              <Button fx:id="ButValiderDepart" mnemonicParsing="false" onAction="#onValiderDepartClick" text="Valider">
                                  <HBox.margin>
                                     <Insets top="40.0" />
                                  </HBox.margin>
@@ -111,7 +111,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <VBox layoutX="472.0" layoutY="25.0" prefHeight="209.0" prefWidth="206.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="472.0" AnchorPane.rightAnchor="318.0" AnchorPane.topAnchor="25.0">
+                  <VBox layoutX="497.0" layoutY="25.0" prefHeight="208.0" prefWidth="208.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="497.0" AnchorPane.rightAnchor="263.0" AnchorPane.topAnchor="25.0">
                      <children>
                         <Text fx:id="titreFormulaire11" strokeType="OUTSIDE" strokeWidth="0.0" text="Enregistrer un retour" wrappingWidth="177.33673095703125">
                            <font>
@@ -133,7 +133,7 @@
                         </TextField>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="ButValiderRetour" mnemonicParsing="false" text="Valider">
+                              <Button fx:id="ButValiderRetour" mnemonicParsing="false" onAction="#onValiderRetourClick" text="Valider">
                                  <HBox.margin>
                                     <Insets top="40.0" />
                                  </HBox.margin>
@@ -145,7 +145,14 @@
                               </Button>
                            </children>
                         </HBox>
-                        <Label fx:id="MessageRetour" wrapText="true" />
+                        <Label fx:id="MessageRetour" prefHeight="41.0" prefWidth="208.0" wrapText="true">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </Label>
                      </children>
                   </VBox>
                </children>

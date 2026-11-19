@@ -56,10 +56,10 @@ public class ReservationDAOImpl implements ReservationDAO {
 
     @Override
     public boolean estEnDeplacement(int idVehicule) {
-        return false;
+        return vehiculeNd().contains(idVehicule);
     }
 
-    public List vehiculeNd() {
+    public List<Integer> vehiculeNd() {
         String query = "SELECT " + idVehiculeCOL + " FROM " + tableReservation + " WHERE " +  dateRetourCOL + " IS NULL ";
 
         try {
