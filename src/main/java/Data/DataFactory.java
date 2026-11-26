@@ -47,7 +47,7 @@ public final class DataFactory {
         vehiculeService = new VehiculeService(flotte, reservationDAO, vehiculeDAO);   // charge la flotte depuis la base
         reservationService = new ReservationService(vehiculeDAO, reservationDAO, salarieDAO);
         exportService = new ExportService(salarieDAO, reservationDAO);
-        authService = new AuthService("user.json");
+        authService = new AuthService();
     }
 
 

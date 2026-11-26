@@ -7,20 +7,33 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 
 public class AuthService {
+
     private String path;
     private JsonMapper mapper = JsonMapper.builder()
             .enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .build();
-    private JsonNode root = mapper.readTree(Path.of("user.json").toFile());
+    private JsonNode root;
     private int tentativeRestante;
+
+    public AuthService() throws IOException {
+        this("/properties/user.json");
+    }
 
     public AuthService(String path) throws IOException {
         this.path = path;
         this.tentativeRestante = 3;
+        try (InputStream is = getClass().getResourceAsStream(this.path)) {
+            if (is == null) {
+                throw new FileNotFoundException("Fichier introuvable : " + this.path);
+            }
+            this.root = mapper.readTree(is);
+        }
     }
 
     public boolean login(String utilisateur, String motDePasse){
