@@ -37,11 +37,12 @@ build/
 
 ### Mac OS ###
 .DS_Store
-
+dependency-reduced-pom.xml
+export/
 .idea
 .mvn
-
-arget/
+out/
+target/
 .idea/
 *.iml
 aes.key
@@ -56,3 +57,4 @@ mvnw.cmd
 .mvn/
 
 mail.properties
+

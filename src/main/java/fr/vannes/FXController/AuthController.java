@@ -27,7 +27,7 @@ public class AuthController {
 
     public AuthController() {
         try {
-            this.authService = new AuthService("user.json");
+            this.authService = new AuthService("/properties/user.json");
         } catch (Exception e) {
             e.printStackTrace();
         }
