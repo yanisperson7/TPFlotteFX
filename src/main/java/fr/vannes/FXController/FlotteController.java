@@ -108,7 +108,7 @@ public class FlotteController {
                 List <Vehicule> listevehicules= new ArrayList<>();
 
                 return vehiculeService.getFlotte();
-                // ou return personneService.getALl();
+
             }
         };
 

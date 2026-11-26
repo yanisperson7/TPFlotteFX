@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Main-Class: fr.vannes.FXApplication.Launcher
+Class-Path: mysql-connector-j-26.10.0.jar javafx-base-21.0.6-win.jar jac
+ kson-databind-2.17.2.jar okio-1.14.0.jar commons-lang3-3.0.jar bcrypt-0
+ .10.2.jar javafx-graphics-21.0.6.jar javafx-controls-21.0.6-win.jar kot
+ lin-stdlib-jdk8-1.6.10.jar maven-artifact-manager-2.0.6.jar kotlin-stdl
+ ib-jdk7-1.6.10.jar maven-artifact-2.0.6.jar fontbox-3.0.3.jar sib-api-v
+ 3-sdk-7.0.0.jar maven-plugin-api-2.0.6.jar validatorfx-0.6.1.jar maven-
+ project-2.0.6.jar plexus-utils-3.0.15.jar pdfbox-io-3.0.3.jar protobuf-
+ java-4.36.1.jar kotlin-stdlib-1.6.20.jar kernel-9.3.0.jar jackson-core-
+ 2.17.2.jar swagger-annotations-1.5.18.jar layout-9.3.0.jar gson-fire-1.
+ 8.2.jar bouncy-castle-connector-9.3.0.jar commons-logging-1.3.3.jar mav
+ en-profile-2.0.6.jar io-9.3.0.jar kotlin-stdlib-common-1.5.31.jar maven
+ -plugin-registry-2.0.6.jar itextpdf-5.5.13.4.jar maven-model-2.0.6.jar 
+ okio-jvm-3.0.0.jar javafx-base-21.0.6.jar okhttp-4.10.0.jar pdfbox-3.0.
+ 3.jar javafx-controls-21.0.6.jar gson-2.8.9.jar maven-settings-2.0.6.ja
+ r javafx-fxml-21.0.6-win.jar maven-repository-metadata-2.0.6.jar threet
+ enbp-1.3.5.jar annotations-13.0.jar bytes-1.5.0.jar jackson-annotations
+ -2.17.2.jar log4j-api-2.26.1.jar logging-interceptor-4.10.0.jar slf4j-a
+ pi-2.0.16.jar javafx-fxml-21.0.6.jar h2-2.5.252.jar log4j-core-2.26.1.j
+ ar maven-gpg-plugin-1.5.jar javafx-graphics-21.0.6-win.jar commons-9.3.
+ 0.jar wagon-provider-api-1.0-beta-2.jar
+

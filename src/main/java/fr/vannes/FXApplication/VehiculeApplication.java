@@ -19,8 +19,7 @@ public class VehiculeApplication extends Application {
         stage.sizeToScene();
         stage.centerOnScreen();
         stage.show();
-        /*FlotteController flotteController = fxmlLoader.getController();
-        flotteController.loadData();*/
+
     }
 
 }
